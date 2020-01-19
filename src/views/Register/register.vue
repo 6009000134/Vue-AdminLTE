@@ -7,19 +7,19 @@
     <p class="login-box-msg">用户注册</p>
 
     <form action="../../index.html" method="post">
-     <div class="form-group has-feedback" :class="{'has-error':$v.UserName.$invalid}">
+     <div class="form-group has-feedback" :class="{'has-error':$v.User.UserName.$invalid}">
         <input v-model="User.UserName"  type="text" class="form-control" placeholder="姓名">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback" :class="{'has-error':$v.Account.$invalid}">
+      <div class="form-group has-feedback" :class="{'has-error':$v.User.Account.$invalid}">
         <input type="text" v-model="User.Account" class="form-control" placeholder="账号" >
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback" :class="{'has-error':$v.Password.$invalid}">
+      <div class="form-group has-feedback" :class="{'has-error':$v.User.Password.$invalid}">
         <input v-model="User.Password" type="password" class="form-control" placeholder="密码" >
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
-      <div class="form-group has-feedback " :class="{'has-error':$v.Password2.$invalid}">
+      <div class="form-group has-feedback " :class="{'has-error':$v.User.Password2.$invalid}">
         <input type="password" v-model="User.Password2" class="form-control" placeholder="再次输入密码" >
         <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
       </div>
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import {register, ajaxRegister} from '@/API/users'
+import {register} from '@/API/users'
 import { required } from 'vuelidate/lib/validators'
 export default{
   data () {
@@ -67,22 +67,26 @@ export default{
         Password: '',
         Password2: '',
         IsAgree: false
-      }
+      },
+      UserName: ''
     }
   },
   validations: {
-    UserName: {
-      required
-    },
-    Account: {
-      required
-    },
-    Password: {
-      required
-    },
-    Password2: {
-      required
+    User: {
+      UserName: {
+        required
+      },
+      Account: {
+        required
+      },
+      Password: {
+        required
+      },
+      Password2: {
+        required
+      }
     }
+
   },
   methods: {toLogin: function () {
     this.$router.push('/')

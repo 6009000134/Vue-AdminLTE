@@ -31,7 +31,8 @@
                   <tr v-for="item in List" :key="item.Key">
                     <td>{{item.Key}}</td>
                     <td>{{item.Value}}</td>
-                    <td><router-link to="/TableInfo"><i class="fa fa-search"></i></router-link></td>
+                    <!-- <td><router-link :to="{name:'TableInfo',params:{DBName:item.Value}}"><i class="fa fa-search"></i></router-link></td> -->
+                    <td><router-link :to="{name:'TableInfo',path:'/TableInfo/',params:{dbname:item.Value}}"><i class="fa fa-search"></i></router-link></td>
                   </tr>
                   </tbody>
               </table>

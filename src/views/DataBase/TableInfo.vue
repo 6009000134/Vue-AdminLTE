@@ -1,12 +1,16 @@
 <template>
-<div>
+  <div>
     <section class="content-header">
       <h1>
         数据表
         <small>列表</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li>
+          <a href="#">
+            <i class="fa fa-dashboard"></i> 首页
+          </a>
+        </li>
         <li class="active">数据表</li>
       </ol>
     </section>
@@ -20,9 +24,17 @@
               <h3 class="box-title">标题</h3>
             </div>
             <div class="mailbox-controls">
-              <div class=row>
-                <div class="form-group col-xs-2">
-                  <input type="text" class="form-control input-sm" placeholder="表名">
+              <div class="form-inline">
+                <div class="form-group">
+                  <div class="input-group">
+                  <input type="text" class="form-control" v-model="DBName" placeholder="数据库" />
+                  <span class="input-group-addon"><a href="javascript:void(0)" @click="DBName=undefined"><i  class="glyphicon glyphicon-trash text-red"></i></a></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" v-model="TableName" placeholder="表名" />
+                  <button class="btn btn-success" data-toggle="modal" data-target="#tableAdd" >新增</button>
+                  <button class="btn btn-success" @click="getTableList">查询</button>
                 </div>
               </div>
             </div>
@@ -39,28 +51,60 @@
                     <td>内容</td>
                     <td>内容</td>
                   </tr>
-                  </tbody>
+                </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-
     </section>
-</div>
+    <modal></modal>
+  </div>
 </template>
 <script>
-import {getDBList} from '@/API/DB'
-export default{
+import { getDBList } from '@/API/DB'
+import { getTableList } from '@/API/Table'
+import modal from '@/views/DataBase/TableAddModal'
+export default {
   name: 'DB',
-  methods: {
-    getDBList () {
-      getDBList().then(function (data) {
-        console.log(data)
-      }).catch(function (data) {
-        console.log(data)
-      })
+  data () {
+    return {
+      DBName: '',
+      TableName: ''
     }
+  },
+  methods: {
+    getTableList () {
+      console.log(this.DBName, { DBName: this.DBName })
+      getTableList(this.DBName)
+        .then(function (data) {
+          console.log(data, 2)
+        })
+        .catch(function (data) {
+          console.log('exceptions:', data)
+        })
+    },
+    getDBList () {
+      getDBList()
+        .then(function (data) {
+          console.log(data)
+        })
+        .catch(function (data) {
+          console.log(data)
+        })
+    }
+  },
+  components: {
+    modal: modal
+  },
+  created () {
+    console.log(this.$route.params)
+    this.DBName = this.$route.params.dbname
   }
 }
 </script>
+<style>
+.myclass2 {
+  height: 200px;
+}
+</style>
