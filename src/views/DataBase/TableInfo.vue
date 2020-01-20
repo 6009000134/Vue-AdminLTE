@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                   <input type="text" class="form-control" v-model="TableName" placeholder="表名" />
-                  <button class="btn btn-success" data-toggle="modal" data-target="#tableAdd" >新增</button>
+                  <button class="btn btn-success" data-toggle="modal" data-target="#tableAdd" @click="DialogStatus=true" >新增</button>
                   <button class="btn btn-success" @click="getTableList">查询</button>
                 </div>
               </div>
@@ -58,7 +58,7 @@
         </div>
       </div>
     </section>
-    <modal></modal>
+    <modal v-bind:dbname='DBName' v-bind:status='DialogStatus' v-on:close="dialogClose"></modal>
   </div>
 </template>
 <script>
@@ -70,12 +70,12 @@ export default {
   data () {
     return {
       DBName: '',
-      TableName: ''
+      TableName: '',
+      DialogStatus: false
     }
   },
   methods: {
     getTableList () {
-      console.log(this.DBName, { DBName: this.DBName })
       getTableList(this.DBName)
         .then(function (data) {
           console.log(data, 2)
@@ -92,6 +92,9 @@ export default {
         .catch(function (data) {
           console.log(data)
         })
+    },
+    dialogClose (data) {
+      console.log('close', data)
     }
   },
   components: {

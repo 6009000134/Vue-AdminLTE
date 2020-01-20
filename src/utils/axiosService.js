@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-var basicUrl = 'http://localhost:30826/api/'
+// var basicUrl = 'http://localhost:30826/api/'
+var basicUrl = ''
 
 const axiosService = axios.create({
   baseURL: basicUrl// , // api 的 base_url

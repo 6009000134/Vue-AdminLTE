@@ -13,40 +13,34 @@
                 <div class="form-horizontal">
                   <div class="form-group">
                     <div class="col-sm-4">
-                      <label class="control-label col-sm-4 padder-xs">表名表名</label>
-                      <div class="col-sm-8 padder-xs">
+                      <label class="control-label col-sm-4 padding-xs">数据库</label>
+                      <div class="col-sm-8 padding-xs">
                         <input type="text" class="form-control" />
                       </div>
                     </div>
                     <div class="col-md-4">
-                      <label class="control-label col-md-4 padder-xs">表名</label>
-                      <div class="col-md-8 padder-xs">
+                      <label class="control-label col-md-4 padding-xs">表名</label>
+                      <div class="col-md-8 padding-xs">
                         <input type="text" class="form-control" />
                       </div>
                     </div>
                     <div class="col-md-4 ">
-                      <label class="control-label col-md-4 padder-xs">表名</label>
-                      <div class="col-md-8 padder-xs">
+                      <label class="control-label col-md-4 padding-xs">中文名称</label>
+                      <div class="col-md-8 padding-xs">
                         <input type="text" class="form-control" />
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <div class="col-md-4">
-                      <label class="control-label col-md-4 padder-xs">表名</label>
-                      <div class="col-md-8 padder-xs">
+                      <label class="control-label col-md-4 padding-xs">英文名称</label>
+                      <div class="col-md-8 padding-xs">
                         <input type="text" class="form-control" />
                       </div>
                     </div>
                     <div class="col-md-4">
-                      <label class="control-label col-md-4 padder-xs">表名</label>
-                      <div class="col-md-8 padder-xs">
-                        <input type="text" class="form-control" />
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <label class="control-label col-md-4 padder-xs">表名</label>
-                      <div class="col-md-8 padder-xs">
+                      <label class="control-label col-md-4 padding-xs">备注</label>
+                      <div class="col-md-8 padding-xs">
                         <input type="text" class="form-control" />
                       </div>
                     </div>
@@ -68,17 +62,35 @@
 <script>
 import $ from 'jquery'
 export default{
+  props: ['dbname', 'status'],
   data () {
     return {
+      DBName: this.dbname,
+      Status: this.status,
       tableInfo: {
         name: ''
       }
     }
   },
+  created () {
+  },
+  mounted () {
+  },
   methods: {
     save () {
-      this.tableInfo.name = ''
+      this.Status = false
+      console.log(2, this.DBName)
       $('#tableAdd').modal('hide')
+      this.$emit('close', this.Status)
+    }
+  },
+  watch: {
+    Status () {
+      if (this.status) {
+        console.log('sss')
+      } else {
+        console.log('ddd')
+      }
     }
   }
 }

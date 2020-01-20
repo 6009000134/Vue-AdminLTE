@@ -13,7 +13,6 @@ var register = (data) => {
 }
 
 var login = (data) => {
-  console.log(data)
   return axiosService.post('/Web/Login/Login', data)
 }
 
