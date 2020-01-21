@@ -1,5 +1,4 @@
 import axiosService from '@/utils/axiosService'
-
 const controllName = '/Web/Register/'
 
 var register = (data) => {

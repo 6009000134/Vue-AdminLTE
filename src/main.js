@@ -27,6 +27,9 @@ import axios from 'axios'
 // import qs from 'qs'
 import Vuelidate from 'vuelidate'
 import Toastr from 'vue2-toastr'
+import './mock/users.js'
+import './mock/DB.js'
+import './mock/Table.js'
 // import 'admin-lte/dist/js/adminlte.min.js'
 
 var toastrConfig = {

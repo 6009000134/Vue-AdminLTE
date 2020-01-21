@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// var basicUrl = 'http://localhost:30826/api/'
-var basicUrl = ''
+var basicUrl = 'http://localhost:30826/api/'
+// var basicUrl = ''
 
 const axiosService = axios.create({
   baseURL: basicUrl// , // api 的 base_url
@@ -10,8 +10,11 @@ const axiosService = axios.create({
 })
 
 axiosService.interceptors.response.use(function (response) {
+  console.log(response)
   if (response.headers.token) {
     localStorage.setItem('token', response.headers.token)
+  } else { // 模拟数据，正式环境注释掉此else
+    localStorage.setItem('token', 'liufei')
   }
   if (response.status === 200) {
     return response.data
