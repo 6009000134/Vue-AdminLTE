@@ -1,10 +1,13 @@
-import axiosService from '@/utils/axiosService'
+import axiosService from '@/utils/axiosService';
 
-const controllerName = '/Basic/Table/'
+const controllerName = '/Basic/Table/';
 
 var getTableList = (data) => {
-  return {S: true, M: '', D: null}
-  // return axiosService.post(controllerName + 'List', data)
-}
+  // return {S: true,M: '',D: null};
+  return axiosService.post(controllerName + 'List',data);
+};
+var addTable = (data) => {
+  return axiosService.post(controllerName+'Add',data);
+};
 
-export {getTableList}
+export {getTableList,addTable};

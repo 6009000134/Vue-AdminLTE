@@ -1,6 +1,8 @@
 <template>
 <div class="content-wrapper" style="min-height: 921px;">
+    <transition name="fade" mode="out-in">
     <router-view></router-view>
+    </transition>
     <!-- Content Header (Page header) -->
     <!-- <section class="content-header">
       <h1>
@@ -26,5 +28,20 @@
 <script>
 export default{
 
-}
+};
 </script>
+<style>
+.fade-enter {
+  opacity:0;
+}
+.fade-leave{
+  opacity:1;
+}
+.fade-enter-active{
+  transition:opacity .5s;
+}
+.fade-leave-active{
+  opacity:0;
+  transition:opacity .5s;
+}
+</style>

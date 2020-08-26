@@ -53,7 +53,7 @@
 </template>
 <script>
 
-import {login} from '@/API/users'
+import {login} from '@/API/users';
 
 export default{
   name: 'login',
@@ -63,25 +63,25 @@ export default{
         Account: '22',
         Password: '22'
       }
-    }
+    };
   },
   methods: {
     login: function () {
-      const that = this
+      const that = this;
       login(this.User).then(function (data) {
         if (data.S) {
-          localStorage.setItem('UserName', data.D.UserName)
-          that.$router.push('Dashboard')
+          localStorage.setItem('UserName',data.D.UserName);
+          that.$router.push('Dashboard');
         }
-      })
+      });
       // this.$router.push('Index')
     },
     register: function () {
-      this.$router.push('/Register')
+      this.$router.push('/Register');
     },
     forgetPwd: function () {
 
     }
   }
-}
+};
 </script>

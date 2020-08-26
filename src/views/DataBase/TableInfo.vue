@@ -27,29 +27,71 @@
               <div class="form-inline">
                 <div class="form-group">
                   <div class="input-group">
-                  <input type="text" class="form-control" v-model="DBName" placeholder="数据库" />
-                  <span class="input-group-addon"><a href="javascript:void(0)" @click="DBName=undefined"><i  class="glyphicon glyphicon-trash text-red"></i></a></span>
+                    <ddl v-model="ChildValue" cust-class="form-control" :dt="DBList" rt="e"></ddl>
+                    <span class="input-group-addon">
+                      <a href="#" @click.prevent="ChildValue={}">
+                        <i class="glyphicon glyphicon-trash text-red"></i>
+                      </a>
+                    </span>
                   </div>
                 </div>
                 <div class="form-group">
                   <input type="text" class="form-control" v-model="TableName" placeholder="表名" />
-                  <button class="btn btn-success" data-toggle="modal" data-target="#tableAdd" @click="DialogStatus=true" >新增</button>
-                  <button class="btn btn-success" @click="getTableList">查询</button>
+                  <button class="btn btn-success" @click="add()">新增</button>
+                  <!-- <button
+                    class="btn btn-success"
+                    data-toggle="modal"
+                    data-target="#tableAdd"
+                    @click="add()"
+                  >新增</button>-->
+                  <button class="btn btn-success" @click="getTableList()">查询</button>
                 </div>
               </div>
             </div>
             <div class="box-body table-responsive no-padding">
-              <table class="table table-hover">
+              <table class="table table-hover table-striped text-nowrap">
                 <tbody>
                   <tr>
-                    <th>名字</th>
-                    <th>名字</th>
-                    <th>名字</th>
+                    <th>操作</th>
+                    <th>ID</th>
+                    <th>创建时间</th>
+                    <th>创建日期</th>
+                    <th>修改人</th>
+                    <th>修改日期</th>
+                    <th>Deleted</th>
+                    <th>数据库连接</th>
+                    <th>数据库类型</th>
+                    <th>数据库类型编码</th>
+                    <th>表名</th>
+                    <th>表中文名</th>
+                    <th>表英文名</th>
+                    <th>备注</th>
                   </tr>
-                  <tr>
-                    <td>内容</td>
-                    <td>内容</td>
-                    <td>内容</td>
+                  <tr v-for="item in TableList" :key="item.ID">
+                    <td>
+                      <router-link title="详细信息" class="btn btn-xs bg-green" to="/TableDetail">
+                        <i class="fa fa-search"></i>
+                      </router-link>
+                      <button class="btn btn-xs bg-purple">
+                        <i class="fa fa-edit"></i>
+                      </button>
+                      <button class="btn btn-xs btn-danger">
+                        <i class="fa fa-trash-o"></i>
+                      </button>
+                    </td>
+                    <td>{{item.ID}}</td>
+                    <td class>{{item.CreatedDate}}</td>
+                    <td>{{item.CreatedBy}}</td>
+                    <td>{{item.UpdateDate}}</td>
+                    <td>{{item.UpdateBy}}</td>
+                    <td>{{item.Deleted}}</td>
+                    <td>{{item.DBName}}</td>
+                    <td>{{item.DBType}}</td>
+                    <td>{{item.DBTypeCode}}</td>
+                    <td>{{item.TableName}}</td>
+                    <td>{{item.TableName_CN}}</td>
+                    <td>{{item.TableName_EN}}</td>
+                    <td>{{item.Remark}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -58,53 +100,99 @@
         </div>
       </div>
     </section>
-    <modal v-bind:dbname='DBName' v-bind:status='DialogStatus' v-on:close="dialogClose"></modal>
+    <modal
+      v-bind:dbname="DBName"
+      :tableInfo2="tableInfo"
+      v-bind:status="DialogStatus"
+      v-on:close="dialogClose"
+    ></modal>
   </div>
 </template>
 <script>
-import { getDBList } from '@/API/DB'
-import { getTableList } from '@/API/Table'
-import modal from '@/views/DataBase/TableAddModal'
+import { getDBList } from "@/API/DB";
+import { getTableList } from "@/API/Table";
+import $ from "jquery";
+// import modal from '@/views/DataBase/TableAddModal';
+import ddl from "@/components/DropDownList/ddl.vue";
 export default {
-  name: 'DB',
-  data () {
+  name: "DB",
+  data() {
     return {
-      DBName: '',
-      TableName: '',
-      DialogStatus: false
-    }
+      DBName: "",
+      TableName: "",
+      DialogStatus: false,
+      DBList: [],
+      TableList: [],
+      ChildValue: undefined,
+      tableInfo: {
+        DBInfo: undefined,
+        Status: this.status,
+        TableName: undefined,
+        TableName_EN: undefined,
+        TableName_CN: undefined,
+        Remark: undefined
+      }
+    };
   },
   methods: {
-    getTableList () {
+    getTableList() {
       getTableList(this.DBName)
-        .then(function (data) {
-          console.log(data, 2)
+        .then(res => {
+          console.log(res);
+          if (res.D.length > 0) {
+            this.TableList = res.D;
+          }
         })
-        .catch(function (data) {
-          console.log('exceptions:', data)
-        })
+        .catch(function(data) {
+          console.log("exceptions:",data);
+        });
     },
-    getDBList () {
+    getDBList() {
       getDBList()
-        .then(function (data) {
-          console.log(data)
+        .then(res => {
+          this.DBList = res.D;
+          return res.D;
         })
-        .catch(function (data) {
-          console.log(data)
-        })
+        .catch(function(data) {
+          console.log("ex",data);
+        });
     },
-    dialogClose (data) {
-      console.log('close', data)
+    add() {
+      this.DialogStatus = true;
+      this.tableInfo2 = {
+        DBInfo: undefined,
+        Status: this.status,
+        TableName: undefined,
+        TableName_EN: undefined,
+        TableName_CN: undefined,
+        Remark: undefined
+      };
+      $("#tableAdd").modal("show");
+    },
+    dialogClose(data) {
+      console.log("close",data);
     }
   },
   components: {
-    modal: modal
+    // modal: modal,
+    modal: resolve => require(["@/views/DataBase/TableAddModal"],resolve),
+    ddl: ddl,
+    myInput: resolve =>
+      require(["@/components/DropDownList/myInput.vue"],resolve)
   },
-  created () {
-    console.log(this.$route.params)
-    this.DBName = this.$route.params.dbname
+  created() {
+    // console.log(this.$route.params);
+    this.DBName = this.$route.params.dbname;
+    getDBList()
+      .then(res => {
+        this.DBList = res.D;
+        return res.D;
+      })
+      .catch(error => {
+        console.log("error",error);
+      });
   }
-}
+};
 </script>
 <style>
 .myclass2 {

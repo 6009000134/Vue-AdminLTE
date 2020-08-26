@@ -29,15 +29,15 @@ export default {
   data () {
     return {
       IDs: 'modal-default' + new Date().toLocaleString()
-    }
+    };
   },
-  props: ['title', 'ids', 'content'],
+  props: ['title','ids','content'],
   methods: {
     showData () {
-      console.log('this.ids')
+      console.log('this.ids');
     }
   }
-}
+};
 </script>
 
 <style>

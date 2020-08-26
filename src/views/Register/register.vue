@@ -56,8 +56,8 @@
 </template>
 
 <script>
-import {register} from '@/API/users'
-import { required } from 'vuelidate/lib/validators'
+import {register} from '@/API/users';
+import { required } from 'vuelidate/lib/validators';
 export default{
   data () {
     return {
@@ -69,7 +69,7 @@ export default{
         IsAgree: false
       },
       UserName: ''
-    }
+    };
   },
   validations: {
     User: {
@@ -89,22 +89,22 @@ export default{
 
   },
   methods: {toLogin: function () {
-    this.$router.push('/')
+    this.$router.push('/');
   },
   register: function () {
     if (!this.User.IsAgree) {
-      this.$toast.error({title: 'dd', message: '请阅读协议！'})
-      return
+      this.$toast.error({title: 'dd',message: '请阅读协议！'});
+      return;
     }
     if (this.User.Password !== this.User.Password2) {
-      this.$toast.error({title: 'dd', message: '密码不一致'})
-      return
+      this.$toast.error({title: 'dd',message: '密码不一致'});
+      return;
     }
-    var r = register(this.User)
-    console.log(r)
+    var r = register(this.User);
+    console.log(r);
   }
   }
-}
+};
 </script>
 
 <style>

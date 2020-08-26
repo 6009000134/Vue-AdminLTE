@@ -1,101 +1,138 @@
 <template>
-<div>
-        <!-- <div class="modal fade in" id="modal-default" style="display:block;"> -->
-        <div class="modal fade" id="tableAdd" >
-          <div class="modal-dialog dialog-width">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">弹出框</h4>
-              </div>
-              <div class="modal-body">
-                <div class="form-horizontal">
-                  <div class="form-group">
-                    <div class="col-sm-4">
-                      <label class="control-label col-sm-4 padding-xs">数据库</label>
-                      <div class="col-sm-8 padding-xs">
-                        <input type="text" class="form-control" />
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <label class="control-label col-md-4 padding-xs">表名</label>
-                      <div class="col-md-8 padding-xs">
-                        <input type="text" class="form-control" />
-                      </div>
-                    </div>
-                    <div class="col-md-4 ">
-                      <label class="control-label col-md-4 padding-xs">中文名称</label>
-                      <div class="col-md-8 padding-xs">
-                        <input type="text" class="form-control" />
-                      </div>
-                    </div>
+  <div>
+    <!-- <div class="modal fade in" id="modal-default" style="display:block;"> -->
+    <div class="modal fade" id="tableAdd">
+      <div class="modal-dialog dialog-width">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">弹出框</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <div class="col-sm-4">
+                  <label class="control-label col-sm-4 padding-xs">数据库</label>
+                  <div class="col-sm-8 padding-xs">
+                    <ddl v-model="tableInfo2.DBInfo" :dt="DBList" rt="e"></ddl>
                   </div>
-                  <div class="form-group">
-                    <div class="col-md-4">
-                      <label class="control-label col-md-4 padding-xs">英文名称</label>
-                      <div class="col-md-8 padding-xs">
-                        <input type="text" class="form-control" />
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <label class="control-label col-md-4 padding-xs">备注</label>
-                      <div class="col-md-8 padding-xs">
-                        <input type="text" class="form-control" />
-                      </div>
-                    </div>
+                </div>
+                <div class="col-md-4">
+                  <label class="control-label col-md-4 padding-xs">表名</label>
+                  <div class="col-md-8 padding-xs">
+                    <input type="text" v-model="tableInfo2.TableName" class="form-control" />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label class="control-label col-md-4 padding-xs">中文名称</label>
+                  <div class="col-md-8 padding-xs">
+                    <input type="text" v-model="tableInfo2.TableName_CN" class="form-control" />
                   </div>
                 </div>
               </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-danger pull-left "  data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-success" @click="save()" >确定</button>
+              <div class="form-group">
+                <div class="col-md-4">
+                  <label class="control-label col-md-4 padding-xs">英文名称</label>
+                  <div class="col-md-8 padding-xs">
+                    <input type="text" v-model="tableInfo2.TableName_EN" class="form-control" />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label class="control-label col-md-4 padding-xs">备注</label>
+                  <div class="col-md-8 padding-xs">
+                    <input type="text" v-model="tableInfo2.Remark" class="form-control" />
+                  </div>
+                </div>
               </div>
             </div>
-            <!-- /.modal-content -->
           </div>
-          <!-- /.modal-dialog -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-success" @click="save()">确定</button>
+          </div>
         </div>
-        <!-- /.modal -->
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
   </div>
 </template>
 <script>
-import $ from 'jquery'
-export default{
-  props: ['dbname', 'status'],
-  data () {
+import $ from "jquery";
+import ddl from "@/components/DropDownList/ddl.vue";
+import { getDBList } from "@/API/DB";
+import { addTable } from "@/API/Table";
+
+export default {
+  props: ["dbname","status","tableInfo2"],
+  data() {
     return {
-      DBName: this.dbname,
-      Status: this.status,
       tableInfo: {
-        name: ''
-      }
-    }
+        DBInfo: undefined,
+        Status: this.status,
+        TableName: undefined,
+        TableName_EN: undefined,
+        TableName_CN: undefined,
+        Remark: undefined
+      },
+      DBList: []
+    };
   },
-  created () {
+  created() {
+    getDBList().then(res => {
+      this.DBList = res.D;
+    });
+    // 此种用法会报DBList undefined，因为此处的this不是vue对象
+    //   getDBList().then(function(data) {
+    //   console.log(data.D);
+    //   console.log(1,this.DBName);
+    //   this.DBList=data.D;
+    // });
   },
-  mounted () {
-  },
+  mounted() {},
   methods: {
-    save () {
-      this.Status = false
-      console.log(2, this.DBName)
-      $('#tableAdd').modal('hide')
-      this.$emit('close', this.Status)
+    save() {
+      let model = {
+        TableName: this.tableInfo2.TableName,
+        TableName_EN: this.tableInfo2.TableName_EN,
+        TableName_CN: this.tableInfo2.TableName_CN,
+        Remark: this.tableInfo2.Remark,
+        DBName: this.tableInfo2.DBInfo.Key,
+        DBTypeCode: this.tableInfo2.DBInfo.Value
+      };
+      addTable(model).then(res => {
+        console.log(res);
+        if (res.S) {
+          this.$toast.success({message: '添加成功！'});
+          this.Status = false;
+          $("#tableAdd").modal("hide");
+          this.$emit("close",this.Status);
+        }else{
+          this.$toast.error({message: '添加失败！'+res.S.M});
+        }
+      });
     }
   },
   watch: {
-    Status () {
+    Status() {
       if (this.status) {
-        console.log('sss')
+        console.log("sss");
       } else {
-        console.log('ddd')
+        console.log("ddd");
       }
     }
+  },
+  components: {
+    ddl: ddl
   }
-}
+};
 </script>
 
 <style>
-.dialog-width{width:900px;}
+.dialog-width {
+  width: 900px;
+}
 </style>
