@@ -1,5 +1,5 @@
 import axiosService from '@/utils/axiosService';
-const controllName = '/Web/Register/';
+const controllName = 'Web/Register/';
 
 var register = (data) => {
   return axiosService.post(controllName + 'Register',data).then(function (data2) {
@@ -12,7 +12,7 @@ var register = (data) => {
 };
 
 var login = (data) => {
-  return axiosService.post('/Web/Login/Login',data);
+  return axiosService.post('Web/Login/Login',data);
 };
 
 export {register,login};

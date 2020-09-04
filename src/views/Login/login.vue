@@ -69,10 +69,13 @@ export default{
     login: function () {
       const that = this;
       login(this.User).then(function (data) {
+        console.log('data',data);
         if (data.S) {
           localStorage.setItem('UserName',data.D.UserName);
           that.$router.push('Dashboard');
         }
+      }).catch(function(data){
+        console.log('data2',data);
       });
       // this.$router.push('Index')
     },

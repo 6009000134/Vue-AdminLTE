@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                   <input type="text" class="form-control" v-model="TableName" placeholder="表名" />
-                  <button class="btn btn-success" @click="add()">新增</button>
+                  <button class="btn btn-success" @click="Add()">新增</button>
                   <!-- <button
                     class="btn btn-success"
                     data-toggle="modal"
@@ -69,13 +69,13 @@
                   </tr>
                   <tr v-for="item in TableList" :key="item.ID">
                     <td>
-                      <router-link title="详细信息" class="btn btn-xs bg-green" to="/TableDetail">
+                      <router-link title="详细信息" class="btn btn-xs bg-green" :to="{name:'TableDetailInfo',params:{tableID:item.ID}}">
                         <i class="fa fa-search"></i>
                       </router-link>
-                      <button class="btn btn-xs bg-purple">
+                      <button class="btn btn-xs bg-purple" @click="Edit(item)">
                         <i class="fa fa-edit"></i>
                       </button>
-                      <button class="btn btn-xs btn-danger">
+                      <button class="btn btn-xs btn-danger" @click="Delete(item.ID)">
                         <i class="fa fa-trash-o"></i>
                       </button>
                     </td>
@@ -106,12 +106,14 @@
       v-bind:status="DialogStatus"
       v-on:close="dialogClose"
     ></modal>
+    <modal2></modal2>
   </div>
 </template>
 <script>
 import { getDBList } from "@/API/DB";
 import { getTableList } from "@/API/Table";
 import $ from "jquery";
+import modal2 from '@/views/DataBase/ModalTest';
 // import modal from '@/views/DataBase/TableAddModal';
 import ddl from "@/components/DropDownList/ddl.vue";
 export default {
@@ -157,7 +159,7 @@ export default {
           console.log("ex",data);
         });
     },
-    add() {
+    Add() {
       this.DialogStatus = true;
       this.tableInfo2 = {
         DBInfo: undefined,
@@ -169,12 +171,20 @@ export default {
       };
       $("#tableAdd").modal("show");
     },
+    Delete(id) {
+      if(confirm("sss")) {
+        
+      }
+    },
+    Edit(item) {
+
+    },
     dialogClose(data) {
       console.log("close",data);
     }
   },
   components: {
-    // modal: modal,
+    modal2: modal2,
     modal: resolve => require(["@/views/DataBase/TableAddModal"],resolve),
     ddl: ddl,
     myInput: resolve =>

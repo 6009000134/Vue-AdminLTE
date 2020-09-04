@@ -32,7 +32,7 @@ export default new Router({
           component: () => import('@/views/DataBase/TableInfo')
         },{
           path: '/TableDetail',
-          name: 'TableTableDetailInfo',
+          name: 'TableDetailInfo',
           component: resolve => require(["@/views/DataBase/TableDetail"],resolve)
         }
       ]
