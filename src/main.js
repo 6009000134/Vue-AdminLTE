@@ -13,25 +13,27 @@ import router from './router';
 import './assets/css/bootstrap.css';
 import './assets/js/bootstrap.min.js';
 import 'font-awesome/css/font-awesome.css';
-import 'admin-lte/bower_components/Ionicons/css/ionicons.min.css';
-import './assets/css/AdminLTE.min.css';
-import './assets/css/skins/_all-skins.min.css';
+// import 'admin-lte/Ionicons/css/ionicons.min.css';
+import './assets/css/AdminLTE.css';
+import './assets/css/skins/_all-skins.css';
 // import 'admin-lte/dist/js/adminlte.min'
 // import 'admin-lte/bower_components/morris.js/morris.css'
 // import 'admin-lte/bower_components/jvectormap/jquery-jvectormap.css'
-import 'admin-lte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css';
-import 'admin-lte/bower_components/bootstrap-daterangepicker/daterangepicker.css';
+// import 'admin-lte/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css';
+// import 'admin-lte/bootstrap-daterangepicker/daterangepicker.css';
 // import 'admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'
 import 'vue2-toastr/dist/css/vue2-toastr.css';// Toastr css
 import axios from 'axios';
 // import qs from 'qs'
-import Vuelidate from 'vuelidate';
 import Toastr from 'vue2-toastr';
 // import './mock/users.js';
 // import './mock/DB.js';
 // import './mock/Table.js';
 // import 'admin-lte/dist/js/adminlte.min.js'
+import VeeValidate, { Validator } from 'vee-validate';
+import v_zh_CN from 'vee-validate/dist/locale/zh_CN';
 
+import myComponent from '@/components/index.js';
 var toastrConfig = {
   position: 'top right',
   showDuration: '1000'// ,
@@ -45,12 +47,17 @@ var toastrConfig = {
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 // Vue.prototype.$qs = qs
-Vue.use(Vuelidate);
-Vue.use(Toastr,toastrConfig);
+Vue.use(Toastr, toastrConfig);
+Vue.use(VeeValidate, {
+  dictionary: {
+    zh_CN: v_zh_CN
+  }
+});
+Validator.localize('zh_CN');
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: { App, myComponent },
   template: '<App/>'
 });

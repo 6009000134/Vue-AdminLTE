@@ -274,7 +274,7 @@ export default{
   data () {
     return {
       UserName: localStorage.getItem('UserName')
-    }
+    };
   }
-}
+};
 </script>

@@ -1,4 +1,4 @@
-import Toastr from 'vue2-toastr'
+import Toastr from 'vue2-toastr';
 // TODO：封装Toastr，减少调用时传参，增加默认参数
 var toastrConfig = {
   position: 'top right',
@@ -9,4 +9,4 @@ var toastrConfig = {
   // errorColor:'',
   // showMethod:'headShake',
   // hideMethod:'flash'
-}
+};

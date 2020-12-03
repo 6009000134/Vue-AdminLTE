@@ -1,15 +1,17 @@
 <template>
-<select :class="custClass" v-model="selectedItem" @change="change($event)" >
-    <option v-for='item in dt' :key='item.Key' :value='item' >{{item.Key}}</option>
-</select>
+  <div>
+    <select :class="custClass" v-model="selectedItem" @change="change($event)">
+      <option v-for="item in dt" :key="item.Key" :value="item">{{item.Key}}</option>
+    </select>
+  </div>
 </template>
 <script>
-export default{
-  data () {
+export default {
+  data() {
     return {
-      selectedItem: undefined,
+      selectedItem: this.value,
       dataset: {},
-      rawHtml: ''
+      rawHtml: ""
     };
   },
   props: {
@@ -25,18 +27,27 @@ export default{
   },
   methods: {
     change(e) {
-      if(this.rt === 'k') {
-        this.$emit('input',this.selectedItem.Key);
-        // console.log('selectedItemIndex',e.target.selectedIndex);
-      }else if(this.rt==='v') {
-        this.$emit('input',this.selectedItem.Value);
-      }else{
-        console.log('ddl',this.selectedItem);
-        this.$emit('input',this.selectedItem);
-      }
+      // if (this.rt === "k") {
+      //   this.$emit("input",this.value=this.selectedItem.Key);
+      //   // console.log('selectedItemIndex',e.target.selectedIndex);
+      // } else if (this.rt === "v") {
+      //   this.$emit("input",this.value=this.selectedItem.Value);
+      // } else {
+      //   this.value=this.selectedItem;
+      // }
+      // this.value=this.selectedItem;
+      this.$emit("input", this.selectedItem);
+      // this.parseToParent();
+    },
+    parseToParent() {
+      this.$emit("input", this.selectedItem);
     }
   },
-  created () {
+  watch: {
+    value(n, o) {
+      console.log("watch", n, o);
+      this.selectedItem = n;
+    }
   }
 };
 </script>

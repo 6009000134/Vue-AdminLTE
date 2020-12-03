@@ -8,5 +8,5 @@
 // import {Navbar} from 'l'
 export default{
   name: 'layout'
-}
+};
 </script>

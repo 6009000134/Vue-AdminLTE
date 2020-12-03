@@ -11,7 +11,7 @@ module.exports = {
   extends: [
     // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
     // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-    'plugin:vue/essential', 
+    'plugin:vue/essential',
     // https://github.com/standard/standard/blob/master/docs/RULES-en.md
     'standard'
   ],
@@ -32,7 +32,7 @@ module.exports = {
      'space-before-function-paren': 0,
      // 引号类型
     "quotes": [0, "single"],
-    "comma-spacing": ["error", { "before": false, "after": false }],
+    "comma-spacing": ["error", { "before": false, "after": true }],
     "brace-style": ["off"],
     "space-infix-ops": ["off"]
   }

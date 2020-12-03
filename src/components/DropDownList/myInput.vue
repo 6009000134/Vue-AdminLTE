@@ -1,12 +1,12 @@
 <template>
-    <!-- <input type='text' v-bind:value='values' v-on:input='showInput($event)'> -->
-    <input type='text' v-model='d' @input="showInput()">
+  <!-- <input type='text' v-bind:value='values' v-on:input='showInput($event)'> -->
+  <input type="text" v-model="d" @input="showInput()" />
 </template>
 <script>
-export default{
+export default {
   data() {
-    return{
-      d: ''
+    return {
+      d: ""
     };
   },
   props: {
@@ -16,7 +16,7 @@ export default{
     showInput() {
       // this.value=e.target.value;
       console.log(this.d);
-      this.$emit('input',this.d);
+      this.$emit("input", this.d);
     }
   }
 };

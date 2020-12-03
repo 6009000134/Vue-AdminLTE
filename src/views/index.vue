@@ -6,9 +6,9 @@
 </div>
 </template>
 <script>
-import navbar from '@/layout/Navbar/navbar'
-import sidebar from '@/layout/sidebar/sidebar'
-import contentMain from '@/layout/ContentMain/contentMain'
+import navbar from '@/layout/Navbar/navbar';
+import sidebar from '@/layout/sidebar/sidebar';
+import contentMain from '@/layout/ContentMain/contentMain';
 
 export default {
   name: 'index2',
@@ -17,5 +17,5 @@ export default {
     sidebar,
     contentMain
   }
-}
+};
 </script>

@@ -69,7 +69,11 @@
                   </tr>
                   <tr v-for="item in TableList" :key="item.ID">
                     <td>
-                      <router-link title="详细信息" class="btn btn-xs bg-green" :to="{name:'TableDetailInfo',params:{tableID:item.ID}}">
+                      <router-link
+                        title="详细信息"
+                        class="btn btn-xs bg-green"
+                        :to="{name:'TableDetailInfo',params:{tableID:item.ID}}"
+                      >
                         <i class="fa fa-search"></i>
                       </router-link>
                       <button class="btn btn-xs bg-purple" @click="Edit(item)">
@@ -113,9 +117,8 @@
 import { getDBList } from "@/API/DB";
 import { getTableList } from "@/API/Table";
 import $ from "jquery";
-import modal2 from '@/views/DataBase/ModalTest';
+import modal2 from "@/views/DataBase/ModalTest";
 // import modal from '@/views/DataBase/TableAddModal';
-import ddl from "@/components/DropDownList/ddl.vue";
 export default {
   name: "DB",
   data() {
@@ -125,7 +128,7 @@ export default {
       DialogStatus: false,
       DBList: [],
       TableList: [],
-      ChildValue: undefined,
+      ChildValue: { Key: "MySql", Value: "MySql" },
       tableInfo: {
         DBInfo: undefined,
         Status: this.status,
@@ -140,13 +143,12 @@ export default {
     getTableList() {
       getTableList(this.DBName)
         .then(res => {
-          console.log(res);
           if (res.D.length > 0) {
             this.TableList = res.D;
           }
         })
         .catch(function(data) {
-          console.log("exceptions:",data);
+          console.log("exceptions:", data);
         });
     },
     getDBList() {
@@ -156,7 +158,7 @@ export default {
           return res.D;
         })
         .catch(function(data) {
-          console.log("ex",data);
+          console.log("ex", data);
         });
     },
     Add() {
@@ -172,23 +174,20 @@ export default {
       $("#tableAdd").modal("show");
     },
     Delete(id) {
-      if(confirm("sss")) {
-        
+      if (confirm("sss")) {
       }
     },
-    Edit(item) {
-
-    },
+    Edit(item) {},
     dialogClose(data) {
-      console.log("close",data);
+      console.log("close", data);
     }
   },
   components: {
     modal2: modal2,
-    modal: resolve => require(["@/views/DataBase/TableAddModal"],resolve),
-    ddl: ddl,
+    modal: resolve => require(["@/views/DataBase/TableAddModal"], resolve),
+    ddl: resolve => require(["@/components/DropDownList/ddl.vue"], resolve),
     myInput: resolve =>
-      require(["@/components/DropDownList/myInput.vue"],resolve)
+      require(["@/components/DropDownList/myInput.vue"], resolve)
   },
   created() {
     // console.log(this.$route.params);
@@ -199,7 +198,7 @@ export default {
         return res.D;
       })
       .catch(error => {
-        console.log("error",error);
+        console.log("error", error);
       });
   }
 };

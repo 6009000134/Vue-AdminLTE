@@ -3,4 +3,4 @@ const controllerName="Basic/Column/";
 var getColumnList = (data) => {
   return axiosService.post(controllerName+'List',data);
 };
-export {getColumnList}
+export {getColumnList};

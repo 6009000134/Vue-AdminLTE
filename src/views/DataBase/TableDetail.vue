@@ -64,7 +64,7 @@
             </div>
     <!-- Main content -->
     <section class="content">
-        
+
     </section>
   </div>
 </template>

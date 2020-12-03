@@ -45,30 +45,30 @@
 </div>
 </template>
 <script>
-import {getDBList} from '@/API/DB'
+import {getDBList} from '@/API/DB';
 export default{
   name: 'DB',
   data () {
     return {
       List: []
-    }
+    };
   },
   methods: {
     getDBList () {
       getDBList().then(function (data) {
-        this.List = data.D
-        console.log(data)
+        this.List = data.D;
+        console.log(data);
       }).catch(function (data) {
-        console.log(data)
-      })
+        console.log(data);
+      });
     }
   },
   created () {
     getDBList().then(resp => {
-      this.List = resp.D
+      this.List = resp.D;
     }).catch(function (data) {
-      console.log(data)
-    })
+      console.log(data);
+    });
   }
-}
+};
 </script>

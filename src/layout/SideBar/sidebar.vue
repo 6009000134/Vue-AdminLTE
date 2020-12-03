@@ -35,6 +35,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="active"><router-link to="/Dashboard"><i class="fa fa-circle-o"></i> 首页</router-link></li>
+            <li class="active"><router-link to="/Test"><i class="fa fa-circle-o"></i> 测试</router-link></li>
           </ul>
         </li>
         <li class="treeview">
@@ -118,10 +119,10 @@
   </aside>
 </template>
 <script>
-import treemenu from '@/utils/treemenu.js'
+import treemenu from '@/utils/treemenu.js';
 export default{
   created: function () {
-    treemenu()
+    treemenu();
   }
-}
+};
 </script>

@@ -28,7 +28,7 @@
 </div>
 </template>
 <script>
-import modal from '@/components/Modal/modal.vue'
+import modal from '@/components/Modal/modal.vue';
 
 export default{
   data () {
@@ -37,16 +37,16 @@ export default{
         ID: 'modal-default2',
         name: 'ss'
       }
-    }
+    };
   },
   components: {
     'modal': modal
   },
   methods: {
     show () {
-      this.modal.showData()
+      this.modal.showData();
     }
   }
-}
+};
 
 </script>

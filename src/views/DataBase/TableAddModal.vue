@@ -67,7 +67,7 @@ import { getDBList } from "@/API/DB";
 import { addTable } from "@/API/Table";
 
 export default {
-  props: ["dbname","status","tableInfo2"],
+  props: ["dbname", "status", "tableInfo2"],
   data() {
     return {
       tableInfo: {
@@ -105,13 +105,13 @@ export default {
       };
       addTable(model).then(res => {
         console.log(res);
-        if (res.S) {
-          this.$toast.success({message: '添加成功！'});
+        if (res.data.S) {
+          this.$toast.success({ message: "添加成功！" });
           this.Status = false;
           $("#tableAdd").modal("hide");
-          this.$emit("close",this.Status);
-        }else{
-          this.$toast.error({message: '添加失败！'+res.S.M});
+          this.$emit("close", this.Status);
+        } else {
+          this.$toast.error({ message: "添加失败！" + res.data.M });
         }
       });
     }

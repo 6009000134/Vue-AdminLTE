@@ -1,38 +1,38 @@
-export default function remoteLoad (url, hasCallback) {
-  return createScript(url)
+export default function remoteLoad (url,hasCallback) {
+  return createScript(url);
 
   function createScript (url) {
-    var scriptElement = document.createElement('script')
-    document.body.appendChild(scriptElement)
+    var scriptElement = document.createElement('script');
+    document.body.appendChild(scriptElement);
 
-    var promise = new Promise((resolve, reject) => {
-      scriptElement.addEventListener('load', e => {
-        removeScript(scriptElement)
+    var promise = new Promise((resolve,reject) => {
+      scriptElement.addEventListener('load',e => {
+        removeScript(scriptElement);
         if (!hasCallback) {
-          resolve(e)
+          resolve(e);
         }
-      }, false)
+      },false);
 
-      scriptElement.addEventListener('error', e => {
-        removeScript(scriptElement)
-        reject(e)
-      }, false)
+      scriptElement.addEventListener('error',e => {
+        removeScript(scriptElement);
+        reject(e);
+      },false);
 
       if (hasCallback) {
         window.____callback____ = function () {
-          resolve()
-          window.____callback____ = null
-        }
+          resolve();
+          window.____callback____ = null;
+        };
       }
-    })
+    });
 
     if (hasCallback) {
-      url += '&callback=____callback____'
+      url += '&callback=____callback____';
     }
 
-    scriptElement.src = url
+    scriptElement.src = url;
 
-    return promise
+    return promise;
   }
 
   /**
@@ -40,6 +40,6 @@ export default function remoteLoad (url, hasCallback) {
    * @param scriptElement script dom
    */
   function removeScript (scriptElement) {
-    document.body.removeChild(scriptElement)
+    document.body.removeChild(scriptElement);
   }
 }
