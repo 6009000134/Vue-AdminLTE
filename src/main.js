@@ -31,7 +31,7 @@ import Toastr from 'vue2-toastr';
 // import './mock/Table.js';
 // import 'admin-lte/dist/js/adminlte.min.js'
 import VeeValidate, { Validator } from 'vee-validate';
-import v_zh_CN from 'vee-validate/dist/locale/zh_CN';
+import vZhCN from 'vee-validate/dist/locale/zh_CN';
 
 import myComponent from '@/components/index.js';
 var toastrConfig = {
@@ -50,7 +50,7 @@ Vue.prototype.$axios = axios;
 Vue.use(Toastr, toastrConfig);
 Vue.use(VeeValidate, {
   dictionary: {
-    zh_CN: v_zh_CN
+    zh_CN: vZhCN
   }
 });
 Validator.localize('zh_CN');

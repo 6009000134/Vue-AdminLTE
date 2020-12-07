@@ -115,9 +115,6 @@ export default {
     };
   },
   methods: {
-    showErrors() {
-      console.log(this.$validator.errors);
-    },
     toLogin: function() {
       this.$router.push("/");
     },

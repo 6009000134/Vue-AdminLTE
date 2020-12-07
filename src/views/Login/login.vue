@@ -39,7 +39,8 @@
             <div class="col-xs-8">
               <div class="checkbox icheck">
                 <label>
-                  <input type="checkbox" /> 记住我
+                  <input v-model="IsRemberMe" @change="IsRember($event)" type="checkbox" />
+                  记住我
                 </label>
               </div>
             </div>
@@ -79,22 +80,27 @@ export default {
       User: {
         Account: "22",
         Password: "22"
-      }
+      },
+      IsRemberMe: false
     };
   },
   methods: {
     login: function() {
+      if (this.IsRemberMe) {
+        localStorage.setItem("Account", this.User.Account);
+        localStorage.setItem("Password", this.User.Password);
+      }
       const that = this;
       login(this.User)
         .then(function(data) {
-          console.log("data", data);
           if (data.S) {
             localStorage.setItem("UserName", data.D.UserName);
             that.$router.push("Dashboard");
+          } else {
+            that.$toast.error({ message: "错误信息：" + data.M });
           }
         })
         .catch(function(data) {
-          console.log(data);
           that.$toast.error({ message: "错误信息：" + data });
         });
       // this.$router.push('Index')
@@ -102,10 +108,19 @@ export default {
     register: function() {
       this.$router.push("/Register");
     },
-    forgetPwd: function() {}
+    forgetPwd: function() {},
+    IsRember(obj) {
+      localStorage.setItem("IsRemberMe", obj.target.checked);
+    }
   },
   mounted() {
-    console.log(this.$validator);
+    if (localStorage.getItem("IsRemberMe")) {
+      this.IsRemberMe = localStorage.getItem("IsRemberMe") === "true";
+      if (localStorage.getItem("Account") !== "") {
+        this.User.Account = localStorage.getItem("Account");
+        this.User.Password = localStorage.getItem("Password");
+      }
+    }
   }
 };
 </script>
