@@ -71,15 +71,15 @@
   <!-- /.login-box -->
 </template>
 <script>
-import { login } from "@/API/users";
+import { login, validateToken } from "@/API/login";
 
 export default {
   name: "login",
   data() {
     return {
       User: {
-        Account: "22",
-        Password: "22"
+        Account: "",
+        Password: ""
       },
       IsRemberMe: false
     };
@@ -88,7 +88,6 @@ export default {
     login: function() {
       if (this.IsRemberMe) {
         localStorage.setItem("Account", this.User.Account);
-        localStorage.setItem("Password", this.User.Password);
       }
       const that = this;
       login(this.User)
@@ -111,14 +110,27 @@ export default {
     forgetPwd: function() {},
     IsRember(obj) {
       localStorage.setItem("IsRemberMe", obj.target.checked);
+    },
+    validateToken(token) {
+      // 校验Token
+      validateToken(token)
+        .then(response => {
+          return response.S;
+        })
+        .catch(error => {
+          this.$toast.error({ message: "Token校验失败："+error+"。请重新登录!" });
+        });
     }
   },
   mounted() {
+    if (localStorage.getItem("Token") !== "") {
+      if (validateToken(localStorage.getItem("Token"))) {
+      }
+    }
     if (localStorage.getItem("IsRemberMe")) {
       this.IsRemberMe = localStorage.getItem("IsRemberMe") === "true";
       if (localStorage.getItem("Account") !== "") {
         this.User.Account = localStorage.getItem("Account");
-        this.User.Password = localStorage.getItem("Password");
       }
     }
   }

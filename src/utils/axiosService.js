@@ -1,4 +1,6 @@
 import axios from 'axios';
+import store from '@/store';
+import { getToken } from '@/utils/auth';
 
 var basicUrl = 'http://localhost:30826/api/';
 // var basicUrl = ''
@@ -14,15 +16,14 @@ axiosService.interceptors.response.use(function (response) {
   // console.log(response);
   if (response.headers.token) {
     localStorage.setItem('token', response.headers.token);
-  } else { // 模拟数据，正式环境注释掉此else
-    localStorage.setItem('token', 'liufei');
   }
+  // else { // 模拟数据，正式环境注释掉此else
+  //   localStorage.setItem('token', 'liufei');
+  // }
   if (response.status === 200) {
     return response.data;
   }
 }, function (error) {
-  // console.log('响应错误信息:');
-  // console.log(error);
   return Promise.reject(error);
   // TODO:当服务端有响应但服务器响应的状态码不在 2xx 范围内，根据status做出处理，无响应返回自定义错误
   // if (error.response) {
@@ -35,6 +36,9 @@ axiosService.interceptors.response.use(function (response) {
 axiosService.interceptors.request.use(function (config) {
   // console.log('请求信息');
   // console.log(config);
+  if (store.state.token) {
+    config.headers.token = getToken();
+  }
   if (config.headers) {
     config.headers.token = localStorage.getItem('token');
   }

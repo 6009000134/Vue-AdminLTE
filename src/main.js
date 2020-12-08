@@ -32,6 +32,7 @@ import Toastr from 'vue2-toastr';
 // import 'admin-lte/dist/js/adminlte.min.js'
 import VeeValidate, { Validator } from 'vee-validate';
 import vZhCN from 'vee-validate/dist/locale/zh_CN';
+import store from './store/index.js'
 
 import myComponent from '@/components/index.js';
 var toastrConfig = {
@@ -59,5 +60,6 @@ new Vue({
   el: '#app',
   router,
   components: { App, myComponent },
-  template: '<App/>'
+  template: '<App/>',
+  store: store
 });
