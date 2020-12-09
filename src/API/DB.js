@@ -1,9 +1,9 @@
-import axiosService from '@/utils/axiosService';
+import httpService from '@/utils/httpService';
 
 const controllerName = 'Basic/DB/';
 
 var getDBList = () => {
-  return axiosService.post(controllerName + 'List');
+  return httpService.post(controllerName + 'List');
 };
 
 export {getDBList};

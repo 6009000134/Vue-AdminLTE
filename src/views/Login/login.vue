@@ -72,7 +72,7 @@
 </template>
 <script>
 import { login, validateToken } from "@/API/login";
-
+import { getToken } from "@/utils/auth";
 export default {
   name: "login",
   data() {
@@ -93,19 +93,18 @@ export default {
       login(this.User)
         .then(function(data) {
           if (data.S) {
-            localStorage.setItem("UserName", data.D.UserName);
-            that.$router.push("Dashboard");
+            that.$router.push("DataBase");
           } else {
             that.$toast.error({ message: "错误信息：" + data.M });
           }
         })
         .catch(function(data) {
-          that.$toast.error({ message: "错误信息：" + data });
+          that.$toast.error({ message: "异常信息：" + data });
         });
       // this.$router.push('Index')
     },
     register: function() {
-      this.$router.push("/Register");
+      this.$router.push({ path: "/Register" });
     },
     forgetPwd: function() {},
     IsRember(obj) {
@@ -118,13 +117,15 @@ export default {
           return response.S;
         })
         .catch(error => {
-          this.$toast.error({ message: "Token校验失败："+error+"。请重新登录!" });
+          this.$toast.error({
+            message: "Token校验失败：" + error + "。请重新登录!"
+          });
         });
     }
   },
   mounted() {
-    if (localStorage.getItem("Token") !== "") {
-      if (validateToken(localStorage.getItem("Token"))) {
+    if (getToken() !== "") {
+      if (validateToken(getToken())) {
       }
     }
     if (localStorage.getItem("IsRemberMe")) {

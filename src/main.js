@@ -3,7 +3,7 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-// import axiosService from './API/axiosService'
+// import httpService from './API/httpService'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 // import 'bootstrap/dist/js/bootstrap.min.js'
 // import 'font-awesome/css/font-awesome.css'
@@ -32,7 +32,7 @@ import Toastr from 'vue2-toastr';
 // import 'admin-lte/dist/js/adminlte.min.js'
 import VeeValidate, { Validator } from 'vee-validate';
 import vZhCN from 'vee-validate/dist/locale/zh_CN';
-import store from './store/index.js'
+import store from './store/index.js';
 
 import myComponent from '@/components/index.js';
 var toastrConfig = {
@@ -46,7 +46,7 @@ var toastrConfig = {
   // hideMethod:'flash'
 };
 Vue.config.productionTip = false;
-Vue.prototype.$axios = axios;
+Vue.prototype.$http = axios;
 // Vue.prototype.$qs = qs
 Vue.use(Toastr, toastrConfig);
 Vue.use(VeeValidate, {

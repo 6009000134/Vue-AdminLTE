@@ -1,22 +1,22 @@
-export default function remoteLoad (url,hasCallback) {
+export default function remoteLoad(url, hasCallback) {
   return createScript(url);
 
-  function createScript (url) {
+  function createScript(url) {
     var scriptElement = document.createElement('script');
     document.body.appendChild(scriptElement);
 
-    var promise = new Promise((resolve,reject) => {
-      scriptElement.addEventListener('load',e => {
+    var promise = new Promise((resolve, reject) => {
+      scriptElement.addEventListener('load', e => {
         removeScript(scriptElement);
         if (!hasCallback) {
           resolve(e);
         }
-      },false);
+      }, false);
 
-      scriptElement.addEventListener('error',e => {
+      scriptElement.addEventListener('error', e => {
         removeScript(scriptElement);
         reject(e);
-      },false);
+      }, false);
 
       if (hasCallback) {
         window.____callback____ = function () {
@@ -39,7 +39,7 @@ export default function remoteLoad (url,hasCallback) {
    * 移除script标签
    * @param scriptElement script dom
    */
-  function removeScript (scriptElement) {
+  function removeScript(scriptElement) {
     document.body.removeChild(scriptElement);
   }
 }

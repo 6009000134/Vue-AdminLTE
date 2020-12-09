@@ -75,8 +75,6 @@
               @click="register()"
             >Axios注册</button>
           </div>
-          <pre>{{errors}}</pre>
-
           <!-- /.col -->
         </div>
       </form>

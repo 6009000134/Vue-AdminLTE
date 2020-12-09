@@ -46,7 +46,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li ><router-link to="/Index/"><i class="fa fa-circle-o"></i> 数据库</router-link></li>
+            <li ><router-link to="/DataBase/"><i class="fa fa-circle-o"></i> 数据库</router-link></li>
             <li ><router-link to="/TableInfo"><i class="fa fa-circle-o"></i> 数据表</router-link></li>
           </ul>
         </li>
