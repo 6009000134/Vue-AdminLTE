@@ -1,12 +1,16 @@
 <template>
-<div>
+  <div>
     <section class="content-header">
       <h1>
         数据库
         <small>列表</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+        <li>
+          <a href="#">
+            <i class="fa fa-dashboard"></i> 首页
+          </a>
+        </li>
         <li class="active">数据库</li>
       </ol>
     </section>
@@ -32,43 +36,52 @@
                     <td>{{item.Key}}</td>
                     <td>{{item.Value}}</td>
                     <!-- <td><router-link :to="{name:'TableInfo',params:{DBName:item.Value}}"><i class="fa fa-search"></i></router-link></td> -->
-                    <td><router-link :to="{name:'TableInfo',path:'/TableInfo/',params:{dbname:item.Value}}"><i class="fa fa-search"></i></router-link></td>
+                    <td>
+                      <router-link
+                        :to="{name:'TableInfo',path:'/TableInfo/',params:{DBInfo:{Key:item.Key,Value:item.Value}}}"
+                      >
+                        <i class="fa fa-search"></i>
+                      </router-link>
+                    </td>
                   </tr>
-                  </tbody>
+                </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-
     </section>
-</div>
+  </div>
 </template>
 <script>
-import {getDBList} from '@/API/DB';
-export default{
-  name: 'DB',
-  data () {
+import { getDBList } from "@/API/DB";
+export default {
+  name: "DB",
+  data() {
     return {
       List: []
     };
   },
   methods: {
-    getDBList () {
-      getDBList().then(function (data) {
-        this.List = data.D;
-        console.log(data);
-      }).catch(function (data) {
-        console.log(data);
-      });
+    getDBList() {
+      getDBList()
+        .then(function(data) {
+          this.List = data.D;
+        })
+        .catch(function(data) {
+          this.$toast({ message: "异常信息:" + data });
+        });
     }
   },
-  created () {
-    getDBList().then(resp => {
-      this.List = resp.D;
-    }).catch(function (data) {
-      console.log(data);
-    });
+  created() {
+    getDBList()
+      .then(resp => {
+        this.List = resp.D;
+      })
+      .catch(function(data) {
+        console.log(data);
+        this.$toast({ message: "异常信息:" + data });
+      });
   }
 };
 </script>

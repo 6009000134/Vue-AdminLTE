@@ -30,27 +30,27 @@ const router = new Router({
         {
           path: '/Test',
           name: 'Test',
-          meta: { title: '测试' },
+          meta: { title: '测试', menuName: '测试' },
           component: resolve => require(['@/views/Dashboard/Test'], resolve)
         }, {
           path: '/Dashboard',
           name: 'Dashboard',
-          meta: { title: '看板' },
+          meta: { title: '看板', menuName: '看板' },
           component: () => import('@/views/Dashboard/UserInfo')
         }, {
           path: '/DataBase',
           name: 'DataBase',
-          meta: { title: '数据库' },
+          meta: { title: '数据库', menuName: '数据库' },
           component: () => import('@/views/DataBase/DBInfo')
         }, {
           path: '/TableInfo',
           name: 'TableInfo',
-          meta: { title: '表' },
+          meta: { title: '表信息', menuName: '表信息' },
           component: () => import('@/views/DataBase/TableInfo')
         }, {
-          path: '/TableDetail',
+          path: '/TableDetail/:tableID',
           name: 'TableDetailInfo',
-          meta: { title: '表详情' },
+          meta: { title: '表详情', menuName: '表详情' },
           component: resolve => require(["@/views/DataBase/TableDetail"], resolve)
         }
       ]

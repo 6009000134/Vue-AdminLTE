@@ -14,10 +14,11 @@ const httpService = axios.create({
 
 httpService.interceptors.response.use(
   response => {
-    console.log('Response', response);
+    /// console.log('Response', response);
     if (response.status === 200) {
       if (response.headers.token) {
         setToken(response.headers.token);
+        store.commit('setToken', response.headers.token);
       } else {
         // router.push({ name: "Login" });
       }
@@ -27,22 +28,22 @@ httpService.interceptors.response.use(
       return response.data;
     }
   }, error => {
-    console.log('ResponseError', error);
+    // console.log('ResponseError', error);
     // return Promise.reject(error);
     // TODO:当服务端有响应但服务器响应的状态码不在 2xx 范围内，根据status做出处理，无响应返回自定义错误
     if (error.response) {
       switch (error.response.status) {
         case 401:
-          // router.push({ name: 'Login' });
+          router.push({ name: 'Login' });
           break;
         case 404:
-          // router.push({ name: 'Error', params: { status: error.response.status, msg: error.response.data.Message } });
+          router.push({ name: 'Error', params: { status: error.response.status, msg: error.response.data.Message } });
           break;
         case 500:
-          // router.push({ name: 'Error', params: { status: error.response.status, msg: error.response.data.Message } });
+          router.push({ name: 'Error', params: { status: error.response.status, msg: error.response.data.Message } });
           break;
         default:
-          // router.push({ name: 'Error', params: { status: error.response.status, msg: error.response.data.Message } });
+          router.push({ name: 'Error', params: { status: error.response.status, msg: error.response.data.Message } });
           break;
       }
       return Promise.reject(error);
@@ -54,8 +55,11 @@ httpService.interceptors.response.use(
 );
 
 httpService.interceptors.request.use(function (config) {
-  console.log('request', config);
+  // console.log('request', config);
+  console.log(store.state.token);
   if (store.state.token) {
+    config.headers.token = store.state.token;
+  } else if (getToken()) {
     config.headers.token = getToken();
   }
   return config;

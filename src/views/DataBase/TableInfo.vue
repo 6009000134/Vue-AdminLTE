@@ -19,7 +19,7 @@
     <section class="content">
       <div class="row">
         <div class="col-xs-12">
-          <div class="box">
+          <div class="box box-primary">
             <div class="box-header">
               <h3 class="box-title">标题</h3>
             </div>
@@ -27,9 +27,9 @@
               <div class="form-inline">
                 <div class="form-group">
                   <div class="input-group">
-                    <ddl v-model="ChildValue" cust-class="form-control" :dt="DBList" rt="e"></ddl>
+                    <ddl v-model="DBInfo" cust-class="form-control" :dt="DBList" rt="e"></ddl>
                     <span class="input-group-addon">
-                      <a href="#" @click.prevent="ChildValue={}">
+                      <a href="#" @click.prevent="DBInfo={}">
                         <i class="glyphicon glyphicon-trash text-red"></i>
                       </a>
                     </span>
@@ -105,7 +105,7 @@
       </div>
     </section>
     <modal
-      v-bind:dbname="DBName"
+      v-bind:dbname="DBInfo"
       :tableInfo2="tableInfo"
       v-bind:status="DialogStatus"
       v-on:close="dialogClose"
@@ -123,7 +123,7 @@ export default {
   name: "DB",
   data() {
     return {
-      DBName: "",
+      DBInfo: {},
       TableName: "",
       DialogStatus: false,
       DBList: [],
@@ -190,15 +190,14 @@ export default {
       require(["@/components/DropDownList/myInput.vue"], resolve)
   },
   created() {
-    // console.log(this.$route.params);
-    this.DBName = this.$route.params.dbname;
+    this.DBInfo = this.$route.params.DBInfo;
     getDBList()
       .then(res => {
         this.DBList = res.D;
         return res.D;
       })
       .catch(error => {
-        console.log("error", error);
+        this.$toast("错误信息："+error);
       });
   }
 };

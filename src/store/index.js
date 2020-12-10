@@ -9,9 +9,12 @@ const store = new Vuex.Store({
     },
     token: ''
   },
-  mutation: {
+  mutations: {
     setUserName(state, name) {
       state.user.name = name;
+    },
+    setToken(state, token) {
+      state.token = token;
     }
   }
 });
