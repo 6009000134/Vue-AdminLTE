@@ -59,7 +59,11 @@ Validator.localize('zh_CN');
 new Vue({
   el: '#app',
   router,
-  components: { App, myComponent },
+  components: {
+    App,
+    myComponent,
+    Modal: resolve => require(['@/components/Modal/modal.vue'], resolve)
+  },
   template: '<App/>',
   store: store
 });

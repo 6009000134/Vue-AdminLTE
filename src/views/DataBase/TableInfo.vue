@@ -27,7 +27,14 @@
               <div class="form-inline">
                 <div class="form-group">
                   <div class="input-group">
-                    <ddl v-model="DBInfo" cust-class="form-control" :dt="DBList" rt="e"></ddl>
+                    <ddl
+                      v-model="DBInfo"
+                      KeyStr="DBName"
+                      ValueStr="DBCode"
+                      cust-class="form-control"
+                      :dt="DBList"
+                      rt="e"
+                    ></ddl>
                     <span class="input-group-addon">
                       <a href="#" @click.prevent="DBInfo={}">
                         <i class="glyphicon glyphicon-trash text-red"></i>
@@ -197,7 +204,7 @@ export default {
         return res.D;
       })
       .catch(error => {
-        this.$toast("错误信息："+error);
+        this.$toast.error({ message: "错误信息：" + error });
       });
   }
 };

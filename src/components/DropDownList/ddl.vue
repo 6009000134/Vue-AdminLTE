@@ -1,7 +1,10 @@
 <template>
   <div>
-    <select :class="custClass" v-model="selectedItem" @change="change($event)">
-      <option v-for="item in dt" :key="item.Key" :value="item">{{item.Key}}</option>
+    <select v-if="ValueStr==''" :class="custClass" v-model="selectedItem" @change="change($event)">
+      <option  v-for="item in dt" :key="item[KeyStr]" :value="item">{{item[KeyStr]}}</option>
+    </select>
+    <select v-if="ValueStr!=''" :class="custClass" v-model="selectedItem" @change="change($event)">
+      <option  v-for="item in dt" :key="item[KeyStr]" :value="item[ValueStr]">{{item[KeyStr]}}</option>
     </select>
   </div>
 </template>
@@ -18,6 +21,18 @@ export default {
     dt: Array,
     rt: String,
     value: undefined,
+    KeyStr: {
+      type: String,
+      default: function() {
+        return "Key";
+      }
+    },
+    ValueStr: {
+      type: String,
+      default: function() {
+        return "";
+      }
+    },
     custClass: {
       type: String,
       default: function() {

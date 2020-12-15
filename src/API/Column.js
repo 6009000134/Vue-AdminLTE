@@ -1,6 +1,15 @@
 import httpService from '@/utils/httpService';
 const controllerName = "Basic/Column/";
 var getColumnList = (data) => {
-  return httpService.post(controllerName + 'List', data);
+  return httpService.post(controllerName + "List", data);
 };
-export { getColumnList };
+var addColumn = (data) => {
+  return httpService.post(controllerName + "Add", data);
+};
+var editColumn = (data) => {
+  return httpService.post(controllerName + "Edit", data);
+};
+var deleteColumn = (data) => {
+  return httpService.post(controllerName + "Delete", data);
+};
+export { getColumnList, addColumn, editColumn, deleteColumn };

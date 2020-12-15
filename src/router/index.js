@@ -38,6 +38,11 @@ const router = new Router({
           meta: { title: '看板', menuName: '看板' },
           component: () => import('@/views/Dashboard/UserInfo')
         }, {
+          path: '/APIS',
+          name: 'APIS',
+          meta: { title: 'TuShare接口', menuName: 'TuShare接口' },
+          component: () => import('@/views/API/APIs')
+        }, {
           path: '/DataBase',
           name: 'DataBase',
           meta: { title: '数据库', menuName: '数据库' },

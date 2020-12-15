@@ -29,16 +29,18 @@
                 <tbody>
                   <tr>
                     <th>数据库编码</th>
+                    <th>数据库名</th>
                     <th>数据库类型</th>
                     <th>操作</th>
                   </tr>
                   <tr v-for="item in List" :key="item.Key">
-                    <td>{{item.Key}}</td>
-                    <td>{{item.Value}}</td>
+                    <td>{{item.DBCode}}</td>
+                    <td>{{item.DBName}}</td>
+                    <td>{{item.DBTypeCode}}</td>
                     <!-- <td><router-link :to="{name:'TableInfo',params:{DBName:item.Value}}"><i class="fa fa-search"></i></router-link></td> -->
                     <td>
                       <router-link
-                        :to="{name:'TableInfo',path:'/TableInfo/',params:{DBInfo:{Key:item.Key,Value:item.Value}}}"
+                        :to="{name:'TableInfo',path:'/TableInfo/',params:{DBInfo:{Key:item.DBCode,Value:item.DBName}}}"
                       >
                         <i class="fa fa-search"></i>
                       </router-link>
@@ -62,20 +64,11 @@ export default {
       List: []
     };
   },
-  methods: {
-    getDBList() {
-      getDBList()
-        .then(function(data) {
-          this.List = data.D;
-        })
-        .catch(function(data) {
-          this.$toast({ message: "异常信息:" + data });
-        });
-    }
-  },
+  methods: {},
   created() {
     getDBList()
       .then(resp => {
+        console.log(resp.D);
         this.List = resp.D;
       })
       .catch(function(data) {

@@ -45,7 +45,7 @@ export default {
     },
     ok() {
       this.IsShow=false;
-      this.$emit('close',this.msg);
+      this.$emit('close', this.msg);
     }
   }
 };
