@@ -1,97 +1,26 @@
 <template>
   <div>
-    <section class="content-header">
-      <h1>
-        {{this.$route.meta.title}}
-        <small>列表</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li>
-          <a href="#">
-            <i class="fa fa-dashboard"></i> 首页
-          </a>
-        </li>
-        <li class="active">数据表</li>
-      </ol>
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box box-primary">
-            <div class="box-header">
-              <h3 class="box-title">标题</h3>
-            </div>
-            <div class="mailbox-controls">
-              <div class="form-inline">
-                <div class="form-group"></div>
-                <div class="form-group">
-                  <input type="text" class="form-control" v-model="TableName" placeholder="表名" />
-                  <button class="btn btn-success" @click="Add()">新增</button>
-                  <button class="btn btn-success" @click="getApis()">查询</button>
-                </div>
-              </div>
-            </div>
-            <div class="box-body table-responsive no-padding">
-              <table class="table table-hover table-striped text-nowrap">
-                <tbody>
-                  <tr>
-                    <th>操作</th>
-                    <th>ID</th>
-                    <th>标题</th>
-                    <th>接口名称</th>
-                    <th>描述</th>
-                  </tr>
-                  <tr v-for="item in APIList" :key="item.ID">
-                    <td>
-                      <router-link
-                        title="详细信息"
-                        class="btn btn-xs bg-green"
-                        :to="{name:'TableDetailInfo',params:{tableID:item.ID}}"
-                      >
-                        <i class="fa fa-search"></i>
-                      </router-link>
-                      <!-- <button class="btn btn-xs bg-purple" @click="Edit(item)">
-                        <i class="fa fa-edit"></i>
-                      </button>
-                      <button class="btn btn-xs btn-danger" @click="Delete(item.ID)">
-                        <i class="fa fa-trash-o"></i>
-                      </button>-->
-                    </td>
-                    <td>{{item.ID}}</td>
-                    <td>{{item.Title}}</td>
-                    <td>{{item.ApiName}}</td>
-                    <td>{{item.Descprition}}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <transition name="fade" mode="out-in">
+    <router-view :to="{name:'APIList'}"></router-view>
+    </transition>
   </div>
 </template>
 <script>
-import { getApis } from "@/API/tushare/apis.js";
-export default {
-  name: "API",
-  data() {
-    return {
-      APIList: []
-    };
-  },
-  methods: {
-    getApis() {
-      getApis('').then(res => {
-        if (res.S) {
-          this.APIList = res.D;
-        } else {
-          this.$toast.error({ message: res.M });
-        }
-      });
-    }
-  }
-};
+export default {};
 </script>
+<style>
+.fade-enter {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+.fade-leave-to {
+  transform: translateX(30px);
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: all 0.5s;
+}
+.fade-leave-active {
+  transition: all 0.5s;
+}
+</style>

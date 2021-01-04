@@ -1,21 +1,25 @@
 <template>
   <div class="text-right form-inline">
     <ul class="pagination">
-      <li class="paginate_button previous" :class="{'disabled':cPage==1}">
-        <a href="#">{{firstTxt}}</a>
+      <li class="paginate_button previous" :class="{'disabled':currentPage==1}">
+        <a href="#" @click.prevent="pageChange(1)">{{firstTxt}}</a>
       </li>
       <li
         v-for=" (i,index) in totalPage"
         :key="index"
         class="paginate_button"
-        :class="{'active':i==cPage}"
+        :class="{'active':i==currentPage}"
       >
-        <a href="#" @click.prevent="cPage=i">{{i}}</a>
+        <a href="#" @click.prevent="pageChange(i)">{{i}}</a>
       </li>
-      <li class="paginate_button next" :class="{'disabled':cPage==totalPage}">
-        <a href="#">{{lastTxt}}</a>
+      <li class="paginate_button next" :class="{'disabled':currentPage==totalPage}">
+        <a href="#" @click.prevent="pageChange(totalPage)">{{lastTxt}}</a>
       </li>
     </ul>
+    <!-- <div class="inline">
+      <button class="btn btn-primary pull-right">跳转</button>
+      <input type="text" class="form-control pull-right margin-r-5" style="width:60px;" />
+    </div> -->
   </div>
 </template>
 <script>
@@ -60,10 +64,14 @@ export default {
   },
   data() {
     return {
-      pIndex: 0,
-      totalPage: Math.ceil(this.totalCount / this.pageSize),
-      cPage: this.currentPage
+      totalPage: Math.ceil(this.totalCount / this.pageSize)
     };
+  },
+  methods: {
+    pageChange(i) {
+      this.$emit("update:currentPage", i);
+      this.$emit("pageChange");
+    }
   }
 };
 </script>

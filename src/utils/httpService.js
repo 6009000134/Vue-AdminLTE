@@ -7,9 +7,9 @@ var basicUrl = 'http://localhost:30826/api/';
 // var basicUrl = ''
 
 const httpService = axios.create({
-  baseURL: basicUrl// , // api 的 base_url
+  baseURL: basicUrl, // api 的 base_url
   // timeout: 5000,// request timeout
-  // headers: {'Content-Type': 'application/json', 'token': '123'}
+  headers: { 'Content-Type': 'application/json' }
 });
 
 httpService.interceptors.response.use(
@@ -28,7 +28,6 @@ httpService.interceptors.response.use(
       return response.data;
     }
   }, error => {
-    // console.log('ResponseError', error);
     // return Promise.reject(error);
     // TODO:当服务端有响应但服务器响应的状态码不在 2xx 范围内，根据status做出处理，无响应返回自定义错误
     if (error.response) {
@@ -55,6 +54,7 @@ httpService.interceptors.response.use(
 );
 
 httpService.interceptors.request.use(function (config) {
+  config.data=JSON.stringify(config.data);
   // console.log('request', config);
   console.log(store.state.token);
   if (store.state.token) {

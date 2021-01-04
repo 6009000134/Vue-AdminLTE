@@ -27,16 +27,15 @@
               <div class="form-inline">
                 <div class="form-group">
                   <div class="input-group">
-                    <ddl
-                      v-model="DBInfo"
-                      KeyStr="DBName"
-                      ValueStr="DBCode"
+                    <f-select
+                      v-model="DBCon"
+                      f-key="DBCon"
+                      f-value="DBName"
                       cust-class="form-control"
-                      :dt="DBList"
-                      rt="e"
-                    ></ddl>
+                      :datasource="DBList"
+                    ></f-select>
                     <span class="input-group-addon">
-                      <a href="#" @click.prevent="DBInfo={}">
+                      <a href="#" @click.prevent="DBCon={}">
                         <i class="glyphicon glyphicon-trash text-red"></i>
                       </a>
                     </span>
@@ -112,32 +111,30 @@
       </div>
     </section>
     <modal
-      v-bind:dbname="DBInfo"
+      v-bind:dbname="DBCon"
       :tableInfo2="tableInfo"
       v-bind:status="DialogStatus"
       v-on:close="dialogClose"
     ></modal>
-    <modal2></modal2>
+    <div id="ttt"></div>
   </div>
 </template>
 <script>
 import { getDBList } from "@/API/DB";
-import { getTableList } from "@/API/Table";
+import { getTableList, deleteTable } from "@/API/Table";
 import $ from "jquery";
-import modal2 from "@/views/DataBase/ModalTest";
 // import modal from '@/views/DataBase/TableAddModal';
 export default {
   name: "DB",
   data() {
     return {
-      DBInfo: {},
+      DBCon: "",
       TableName: "",
       DialogStatus: false,
       DBList: [],
       TableList: [],
-      ChildValue: { Key: "MySql", Value: "MySql" },
       tableInfo: {
-        DBInfo: undefined,
+        DBCon: undefined,
         Status: this.status,
         TableName: undefined,
         TableName_EN: undefined,
@@ -148,10 +145,12 @@ export default {
   },
   methods: {
     getTableList() {
-      getTableList(this.DBName)
+      getTableList(this.DBCon)
         .then(res => {
-          if (res.D.length > 0) {
+          if (res.S) {
             this.TableList = res.D;
+          } else {
+            this.$toast.error({ message: res.M });
           }
         })
         .catch(function(data) {
@@ -171,7 +170,7 @@ export default {
     Add() {
       this.DialogStatus = true;
       this.tableInfo2 = {
-        DBInfo: undefined,
+        DBCon: undefined,
         Status: this.status,
         TableName: undefined,
         TableName_EN: undefined,
@@ -181,23 +180,43 @@ export default {
       $("#tableAdd").modal("show");
     },
     Delete(id) {
-      if (confirm("sss")) {
+      // TODO:弹出床交互
+      console.log(id);
+      if (confirm("是否要删除表")) {
+        deleteTable(id).then(res => {
+          if (res.S) {
+            this.$toast.success({ message: "删除成功！" });
+            this.getTableList();
+          } else {
+            this.$toast.error(res.M);
+          }
+        });
       }
     },
-    Edit(item) {},
+    Edit(item) {
+      console.log(item);
+      this.DialogStatus = true;
+      this.tableInfo = {
+        DBCon: item.DBCon,
+        Status: this.status,
+        TableName: item.TableName,
+        TableName_EN: item.TableName_EN,
+        TableName_CN: item.TableName_CN,
+        Remark: item.Remark
+      };
+      $("#tableAdd").modal("show");
+    },
     dialogClose(data) {
       console.log("close", data);
     }
   },
   components: {
-    modal2: modal2,
     modal: resolve => require(["@/views/DataBase/TableAddModal"], resolve),
-    ddl: resolve => require(["@/components/DropDownList/ddl.vue"], resolve),
     myInput: resolve =>
       require(["@/components/DropDownList/myInput.vue"], resolve)
   },
   created() {
-    this.DBInfo = this.$route.params.DBInfo;
+    this.DBCon = this.$route.params.DBCon;
     getDBList()
       .then(res => {
         this.DBList = res.D;

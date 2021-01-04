@@ -101,21 +101,27 @@
           </table>
         </div>
       </div>
-      <my-pagination></my-pagination>
+      <f-pagination
+        :currentPage.sync="page.currentPage"
+        :pageSize="page.pageSize"
+        :pageIndex="page.pageIndex"
+        :totalCount="page.totalCount"
+        @pageChange="DataBind"
+      ></f-pagination>
     </section>
   </div>
 </template>
 
 <script>
 import { getColumnList } from "@/API/Column";
-import Pagination from "@/components/Pagination";
 export default {
   data() {
     return {
       tableID: 1,
       columnName: "",
       columnName_CN: "",
-      List: []
+      List: [],
+      page: { pageSize: 10, pageIndex: 1, currentPage: 1, totalCount: 55 }
     };
   },
   methods: {
@@ -124,13 +130,16 @@ export default {
     },
     getColumnList() {
       getColumnList(this.tabldID).then(response => {
-        console.log(response.D);
         if (response.S) {
           this.List = response.D;
         } else {
           this.$toast.error({ message: response.M });
         }
       });
+    },
+    DataBind() {
+      // TODO:列数据绑定
+      console.log("bind");
     }
   },
   created() {
@@ -147,9 +156,6 @@ export default {
         this.$toast.error({ message: res.M });
       }
     });
-  },
-  components: {
-    myPagination: Pagination
   }
 };
 </script>

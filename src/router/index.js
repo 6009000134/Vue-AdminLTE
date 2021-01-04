@@ -41,7 +41,26 @@ const router = new Router({
           path: '/APIS',
           name: 'APIS',
           meta: { title: 'TuShare接口', menuName: 'TuShare接口' },
-          component: () => import('@/views/API/APIs')
+          component: () => import('@/views/API/APIs'),
+          redirect: '/APIs/List',
+          children: [
+            {
+              path: 'List',
+              name: 'APIList',
+              meta: { title: 'TuShare接口列表', menuName: 'TuShare接口列表' },
+              component: resolve => require(["@/views/API/List"], resolve)
+            }, {
+              path: 'Add',
+              name: 'AddAPI',
+              meta: { title: '新增接口', menuName: '新增接口' },
+              component: resolve => require(["@/views/API/Add"], resolve)
+            }, {
+              path: 'Edit',
+              name: 'EditAPI',
+              meta: { title: '修改接口', menuName: '修改接口' },
+              component: resolve => require(["@/views/API/Edit"], resolve)
+            }
+          ]
         }, {
           path: '/DataBase',
           name: 'DataBase',

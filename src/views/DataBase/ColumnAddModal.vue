@@ -8,10 +8,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title">
-              <span v-show="!IsEdit">新增</span>
-              <span v-show="IsEdit">修改</span>列信息
-            </h4>
+            <h4 class="modal-title">弹出框</h4>
           </div>
           <div class="modal-body">
             <div class="form-horizontal">
@@ -19,7 +16,12 @@
                 <div class="col-sm-4">
                   <label class="control-label col-sm-4 padding-xs">数据库</label>
                   <div class="col-sm-8 padding-xs">
-                    <ddl v-model="tableInfo2.DBInfo" :dt="DBList" rt="e"></ddl>
+                    <f-select
+                      v-model="tableInfo2.DBCon"
+                      f-key="DBCon"
+                      f-value="DBName"
+                      :datasource="DBList"
+                    ></f-select>
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -64,47 +66,73 @@
   </div>
 </template>
 <script>
-import { addColumn, editColumn } from "@/API/Column";
+import $ from "jquery";
+import { getDBList } from "@/API/DB";
+import { addTable } from "@/API/Table";
 
 export default {
   props: ["dbname", "status", "tableInfo2"],
   data() {
     return {
-      IsEdit: false
+      tableInfo: {
+        // DBInfo: undefined,
+        // Status: this.status,
+        // TableName: undefined,
+        // TableName_EN: undefined,
+        // TableName_CN: undefined,
+        // Remark: undefined
+      },
+      DBList: []
     };
+  },
+  created() {
+    // getDBList().then(res => {
+    //   this.DBList = res.D;
+    // });
+    // 此种用法会报DBList undefined，因为此处的this不是vue对象
+    //   getDBList().then(function(data) {
+    //   console.log(data.D);
+    //   console.log(1,this.DBName);
+    //   this.DBList=data.D;
+    // });
   },
   methods: {
     save() {
-      if (IsEdit) {
-        // Edit
-      } else {
-        // Add
-      }
       let model = {
         TableName: this.tableInfo2.TableName,
         TableName_EN: this.tableInfo2.TableName_EN,
         TableName_CN: this.tableInfo2.TableName_CN,
         Remark: this.tableInfo2.Remark,
-        DBName: this.tableInfo2.DBInfo.Key,
-        DBTypeCode: this.tableInfo2.DBInfo.Value
+        DBCon: this.tableInfo2.DBCon // ,
+        // DBTypeCode: this.tableInfo2.DBInfo.Value
       };
-      addColumn(model).then(res => {
+      addTable(model).then(res => {
         console.log(res);
-        if (res.data.S) {
+        if (res.S) {
           this.$toast.success({ message: "添加成功！" });
           this.Status = false;
           $("#tableAdd").modal("hide");
           this.$emit("close", this.Status);
         } else {
-          this.$toast.error({ message: "添加失败！" + res.data.M });
+          this.$toast.error({ message: "添加失败！" + res.M });
         }
       });
     }
   },
-  mounted() {
-    if (this.$route.params.tableID) {
-      this.IsEdit = true;
+  watch: {
+    Status() {
+      if (this.status) {
+        console.log("sss");
+      } else {
+        console.log("ddd");
+      }
     }
+  },
+  mounted() {
+    getDBList().then(res => {
+      console.log(res.D);
+      this.DBList = res.D;
+    });
   }
 };
 </script>

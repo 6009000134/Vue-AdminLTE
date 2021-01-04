@@ -1,10 +1,10 @@
 <template>
   <div>
-    <select v-if="ValueStr==''" :class="custClass" v-model="selectedItem" @change="change($event)">
-      <option  v-for="item in dt" :key="item[KeyStr]" :value="item">{{item[KeyStr]}}</option>
+    <select v-if="fKey==''" :class="custClass" v-model="selectedItem" @change="change($event)">
+      <option  v-for="item in datasource" :key="item[fKey]" :value="item">{{item[fValue]}}</option>
     </select>
-    <select v-if="ValueStr!=''" :class="custClass" v-model="selectedItem" @change="change($event)">
-      <option  v-for="item in dt" :key="item[KeyStr]" :value="item[ValueStr]">{{item[KeyStr]}}</option>
+    <select v-if="fKey!=''" :class="custClass" v-model="selectedItem" @change="change($event)">
+      <option  v-for="item in datasource" :key="item[fKey]" :value="item[fKey]">{{item[fValue]}}</option>
     </select>
   </div>
 </template>
@@ -18,16 +18,15 @@ export default {
     };
   },
   props: {
-    dt: Array,
-    rt: String,
+    datasource: Array,
     value: undefined,
-    KeyStr: {
+    fKey: {
       type: String,
       default: function() {
-        return "Key";
+        return "";
       }
     },
-    ValueStr: {
+    fValue: {
       type: String,
       default: function() {
         return "";
@@ -60,9 +59,10 @@ export default {
   },
   watch: {
     value(n, o) {
-      console.log("watch", n, o);
       this.selectedItem = n;
     }
+  },mounted(){
+    console.log(this.selectedItem);
   }
 };
 </script>

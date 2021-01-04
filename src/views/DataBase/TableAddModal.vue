@@ -16,7 +16,12 @@
                 <div class="col-sm-4">
                   <label class="control-label col-sm-4 padding-xs">数据库</label>
                   <div class="col-sm-8 padding-xs">
-                    <ddl v-model="tableInfo2.DBInfo" :dt="DBList" rt="e"></ddl>
+                    <f-select
+                      v-model="tableInfo2.DBCon"
+                      f-key="DBCon"
+                      f-value="DBName"
+                      :datasource="DBList"
+                    ></f-select>
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -62,7 +67,6 @@
 </template>
 <script>
 import $ from "jquery";
-import ddl from "@/components/DropDownList/ddl.vue";
 import { getDBList } from "@/API/DB";
 import { addTable } from "@/API/Table";
 
@@ -71,20 +75,20 @@ export default {
   data() {
     return {
       tableInfo: {
-        DBInfo: undefined,
-        Status: this.status,
-        TableName: undefined,
-        TableName_EN: undefined,
-        TableName_CN: undefined,
-        Remark: undefined
+        // DBInfo: undefined,
+        // Status: this.status,
+        // TableName: undefined,
+        // TableName_EN: undefined,
+        // TableName_CN: undefined,
+        // Remark: undefined
       },
       DBList: []
     };
   },
   created() {
-    getDBList().then(res => {
-      this.DBList = res.D;
-    });
+    // getDBList().then(res => {
+    //   this.DBList = res.D;
+    // });
     // 此种用法会报DBList undefined，因为此处的this不是vue对象
     //   getDBList().then(function(data) {
     //   console.log(data.D);
@@ -92,7 +96,6 @@ export default {
     //   this.DBList=data.D;
     // });
   },
-  mounted() {},
   methods: {
     save() {
       let model = {
@@ -100,18 +103,18 @@ export default {
         TableName_EN: this.tableInfo2.TableName_EN,
         TableName_CN: this.tableInfo2.TableName_CN,
         Remark: this.tableInfo2.Remark,
-        DBName: this.tableInfo2.DBInfo.Key,
-        DBTypeCode: this.tableInfo2.DBInfo.Value
+        DBCon: this.tableInfo2.DBCon // ,
+        // DBTypeCode: this.tableInfo2.DBInfo.Value
       };
       addTable(model).then(res => {
         console.log(res);
-        if (res.data.S) {
+        if (res.S) {
           this.$toast.success({ message: "添加成功！" });
           this.Status = false;
           $("#tableAdd").modal("hide");
           this.$emit("close", this.Status);
         } else {
-          this.$toast.error({ message: "添加失败！" + res.data.M });
+          this.$toast.error({ message: "添加失败！" + res.M });
         }
       });
     }
@@ -125,8 +128,11 @@ export default {
       }
     }
   },
-  components: {
-    ddl: ddl
+  mounted() {
+    getDBList().then(res => {
+      console.log(res.D);
+      this.DBList = res.D;
+    });
   }
 };
 </script>

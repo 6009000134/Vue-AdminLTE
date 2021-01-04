@@ -34,13 +34,13 @@
                     <th>操作</th>
                   </tr>
                   <tr v-for="item in List" :key="item.Key">
-                    <td>{{item.DBCode}}</td>
+                    <td>{{item.DBCon}}</td>
                     <td>{{item.DBName}}</td>
                     <td>{{item.DBTypeCode}}</td>
                     <!-- <td><router-link :to="{name:'TableInfo',params:{DBName:item.Value}}"><i class="fa fa-search"></i></router-link></td> -->
                     <td>
                       <router-link
-                        :to="{name:'TableInfo',path:'/TableInfo/',params:{DBInfo:{Key:item.DBCode,Value:item.DBName}}}"
+                        :to="{name:'TableInfo',path:'/TableInfo/',params:{DBCon:item.DBCon}}"
                       >
                         <i class="fa fa-search"></i>
                       </router-link>
@@ -68,12 +68,10 @@ export default {
   created() {
     getDBList()
       .then(resp => {
-        console.log(resp.D);
         this.List = resp.D;
       })
       .catch(function(data) {
-        console.log(data);
-        this.$toast({ message: "异常信息:" + data });
+        this.$toast.error({ message: "异常信息:" + data });
       });
   }
 };

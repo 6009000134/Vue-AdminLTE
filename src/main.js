@@ -26,6 +26,7 @@ import 'vue2-toastr/dist/css/vue2-toastr.css';// Toastr css
 import axios from 'axios';
 // import qs from 'qs'
 import Toastr from 'vue2-toastr';
+import eModal from '@/components/Modal/extendModal.vue';
 // import './mock/users.js';
 // import './mock/DB.js';
 // import './mock/Table.js';
@@ -34,7 +35,7 @@ import VeeValidate, { Validator } from 'vee-validate';
 import vZhCN from 'vee-validate/dist/locale/zh_CN';
 import store from './store/index.js';
 
-import myComponent from '@/components/index.js';
+import fCompnents from '@/components/index.js';
 var toastrConfig = {
   position: 'top right',
   showDuration: '1000'// ,
@@ -54,15 +55,15 @@ Vue.use(VeeValidate, {
     zh_CN: vZhCN
   }
 });
+Vue.component('f-pagination', fCompnents.pagination);
+Vue.component('f-select', fCompnents.select);
 Validator.localize('zh_CN');
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   components: {
-    App,
-    myComponent,
-    Modal: resolve => require(['@/components/Modal/modal.vue'], resolve)
+    App
   },
   template: '<App/>',
   store: store

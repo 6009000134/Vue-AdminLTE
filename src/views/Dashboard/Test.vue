@@ -1,5 +1,9 @@
 <template>
   <div>
+    <load :IsShow.sync="showLoading"></load>
+    <emodal :IsShow.sync="IsShow">
+      <span>123</span>
+    </emodal>
     <div class="content-header">
       <h1>
         标题
@@ -11,9 +15,15 @@
         <div class="box-header with-border">
           <h4>box title</h4>
           <div class="row">
-              <div class="col-md-4"><span>123</span></div>
-              <div class="col-md-4"><span>123</span></div>
-              <div class="col-md-4"><span>123</span></div>
+            <div class="col-md-4">
+              <span>123</span>
+            </div>
+            <div class="col-md-4">
+              <span>123</span>
+            </div>
+            <div class="col-md-4">
+              <span>123</span>
+            </div>
           </div>
         </div>
         <div class="box-body testcss">
@@ -79,25 +89,44 @@
         <div class="box-body">
           <h1>123</h1>
           <cusCom1 :cusCount="msg" v-model="msg"></cusCom1>
-          <input type="text" v-model="msg">
+          <input type="text" v-model="msg" />
         </div>
       </div>
     </div>
+    <button @click="showModal()">弹窗</button>
+    <button @click="showLoad()">加载</button>
+    <router-link :to="{name:'TableAdd'}">ss</router-link>
+    <router-view></router-view>
   </div>
 </template>
 <script>
-import TestCom from '@/components/Test/TestCom'
+import TestCom from "@/components/Test/TestCom";
+import emodal from "@/components/Modal/extendModal.vue";
+import load from "@/components/Modal/loading.vue";
 export default {
   data() {
     return {
-      msg: 2
+      msg: 2,
+      IsShow: false,
+      showLoading: false
     };
   },
+  methods: {
+    showModal() {
+      this.IsShow = !this.IsShow;
+    },
+    showLoad() {
+      this.showLoading = !this.showLoading;
+    }
+  },
   components: {
-    cusCom1: TestCom
+    cusCom1: TestCom,
+    emodal: emodal,
+    load
   }
 };
 </script>
 <style>
-.testcss{}
+.testcss {
+}
 </style>

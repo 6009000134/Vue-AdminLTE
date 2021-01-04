@@ -1,6 +1,7 @@
-import ddl from './DropDownList/ddl.vue';
-import myInput from './DropDownList/myInput.vue';
+import select from './DropDownList/ddl.vue';
+import input from './DropDownList/myInput.vue';
 import modal from './Modal/modal.vue';
+import pagination from '@/components/Pagination';
 // const components=[
 //   ddl,
 //   myInput,
@@ -18,7 +19,8 @@ import modal from './Modal/modal.vue';
 // ]
 
 export default {
-  ddl,
-  myInput,
-  modal
+  select: select,
+  input: input,
+  modal: modal,
+  pagination: pagination
 };
