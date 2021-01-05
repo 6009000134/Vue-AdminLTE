@@ -8,4 +8,14 @@ var getApiDetail = (data) => {
   return httpService.post(controllerName + "Detail", data);
 };
 
-export { getApis, getApiDetail };
+var testApi = (data) => {
+  return httpService.post(controllerName + "Test", data);
+};
+var getHtml = (data) => {
+  return httpService.post(controllerName + "GetHtml", data);
+};
+var addApi = (data) => {
+  return httpService.post(controllerName + "Add", data);
+};
+
+export { getApis, getApiDetail, testApi, getHtml, addApi };
