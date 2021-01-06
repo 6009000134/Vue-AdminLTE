@@ -27,6 +27,7 @@
       <ul class="sidebar-menu tree" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
+
           <a href="javascript:void()">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">

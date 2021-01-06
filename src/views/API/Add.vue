@@ -51,6 +51,12 @@
                     </div>
                   </div>
                 </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-1">列数</label>
+                  <div class="col-sm-11">
+                    <input class="form-control" type="text" v-model="outputColumns" />
+                  </div>
+                </div>
               </div>
             </div>
             <div class="box-body">
@@ -179,7 +185,8 @@ export default {
       IsTrue: false,
       sendData: Object,
       apiResult: undefined,
-      url: ""
+      outputColumns: 4,
+      url: "https://tushare.pro/document/2?doc_id=95"
     };
   },
   methods: {
@@ -201,9 +208,9 @@ export default {
         this.$toast.error({ message: "匹配接口数据失败" });
         return;
       }
-      this.apiTitle = regTitle.exec(hh);
-      this.apiName = regApiName.exec(hh);
-      this.description = regDescription.exec(hh);
+      this.apiTitle = regTitle.exec(hh)[0];
+      this.apiName = regApiName.exec(hh)[0];
+      this.description = regDescription.exec(hh)[0];
       var inputStr = regInputHtml.exec(hh)[0];
       var outputStr = regOutputHtml.exec(hh)[0];
       if (!regParam.test(inputStr) || !regParam.test(outputStr)) {
@@ -217,10 +224,15 @@ export default {
         apiName: this.apiName,
         description: this.description,
         inputParam: this.inputParam,
-        outputParam: this.outputParam
+        outputParam: this.outputParam,
+        outputColumns: this.outputColumns
       };
       addApi(apiInfo).then(res => {
-        console.log(res);
+        if (res.S) {
+          console.log(res);
+        } else {
+          this.$toast.error({ message: res.M });
+        }
       });
     },
     GetHtml() {
@@ -250,9 +262,9 @@ export default {
         this.$toast.error({ message: "匹配接口数据失败" });
         return;
       }
-      this.apiTitle = regTitle.exec(hh);
-      this.apiName = regApiName.exec(hh);
-      this.description = regDescription.exec(hh);
+      this.apiTitle = regTitle.exec(hh)[0];
+      this.apiName = regApiName.exec(hh)[0];
+      this.description = regDescription.exec(hh)[0];
       var inputStr = regInputHtml.exec(hh)[0];
       var outputStr = regOutputHtml.exec(hh)[0];
       if (!regParam.test(inputStr) || !regParam.test(outputStr)) {
@@ -279,28 +291,30 @@ export default {
         if (this.testData[i] !== undefined) {
           str += '"' + this.inputParam[i * 4] + '":"' + this.testData[i] + '",';
         } else {
-          str += '"' + this.inputParam[i * 4] + '":"",';
+          // str += '"' + this.inputParam[i * 4] + '":"",';
         }
       }
       str = str.substring(0, str.length - 1) + "},";
       str += '"fields":"';
-      if (this.outputParam % 3 === 0) {
+      if (this.outputParam.length % 3 === 0) {
         for (var j = 0; j < this.outputParam.length; j++) {
           if (j % 3 === 0) {
             str += this.outputParam[j] + ",";
           }
         }
-      } else if (this.outputParam % 4 === 0) {
+      } else if (this.outputParam.length % 4 === 0) {
         for (var n = 0; n < this.outputParam.length; n++) {
           if (n % 4 === 0) {
             str += this.outputParam[n] + ",";
           }
         }
       }
+      console.log(str);
 
       str = str.substring(0, str.length - 1);
       str += '"';
       str += "}";
+      console.log(str);
       this.sendData = JSON.parse(str);
       var testJson = {
         url: "http://api.tushare.pro",
