@@ -1,5 +1,5 @@
 <template>
-  <div class="text-right form-inline">
+  <div v-if="pageSize<totalCount" class="text-right form-inline">
     <ul class="pagination">
       <li class="paginate_button previous" :class="{'disabled':currentPage==1}">
         <a href="#" @click.prevent="pageChange(1)">{{firstTxt}}</a>

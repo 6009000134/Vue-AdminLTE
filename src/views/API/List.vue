@@ -48,7 +48,7 @@
                       <router-link
                         title="详细信息"
                         class="btn btn-xs bg-green"
-                        :to="{name:'EditAPI',params:{tableID:item.ID}}"
+                        :to="{name:'EditAPI',params:{ID:item.ID}}"
                       >
                         <i class="fa fa-search"></i>
                       </router-link>

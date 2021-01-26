@@ -159,6 +159,7 @@
             <!-- <div class="box-body table-responsive no-padding"> -->
 
             <div class="box-footer">
+              <span>{{this.apiResult.items.length}}</span>
               <!-- <button class="btn btn-success" @click="test()">测试</button> -->
               <pre>{{this.apiResult}}</pre>
             </div>
@@ -184,7 +185,7 @@ export default {
       testData: [],
       IsTrue: false,
       sendData: Object,
-      apiResult: undefined,
+      apiResult: { items: [] },
       outputColumns: 4,
       url: "https://tushare.pro/document/2?doc_id=95"
     };

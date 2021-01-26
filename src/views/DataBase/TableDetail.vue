@@ -21,6 +21,10 @@
         </div>
         <div class="padder-xs">
           <div class="form-inline">
+            <router-link class="btn btn-success" :to="{name:'ColumnAdd',params:{tableID:tableID}}">
+              <i class="glyphicon glyphicon-plus"></i>
+              新增
+            </router-link>
             <button class="form-control btn btn-success">
               <i class="glyphicon glyphicon-plus"></i>
               新增
@@ -121,7 +125,7 @@ export default {
       columnName: "",
       columnName_CN: "",
       List: [],
-      page: { pageSize: 10, pageIndex: 1, currentPage: 1, totalCount: 55 }
+      page: { pageSize: 10, pageIndex: 1, currentPage: 1, totalCount: 0 }
     };
   },
   methods: {

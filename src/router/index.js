@@ -8,7 +8,8 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      component: resolve => require(['@/views/Login/login'], resolve)
+      component: resolve => require(['@/views/Login/login'], resolve),
+      meta: { title: '首页' }
       // redirect: '/Login'
     },
     {
@@ -55,7 +56,7 @@ const router = new Router({
               meta: { title: '新增接口', menuName: '新增接口' },
               component: resolve => require(["@/views/API/Add"], resolve)
             }, {
-              path: 'Edit',
+              path: 'Edit/:ID',
               name: 'EditAPI',
               meta: { title: '修改接口', menuName: '修改接口' },
               component: resolve => require(["@/views/API/Edit"], resolve)
@@ -76,11 +77,17 @@ const router = new Router({
           name: 'TableDetailInfo',
           meta: { title: '表详情', menuName: '表详情' },
           component: resolve => require(["@/views/DataBase/TableDetail"], resolve)
+        }, {
+          path: '/ColumnAddModal/:tableID',
+          name: 'ColumnAdd',
+          meta: { title: '新增列', menuName: '新增列' },
+          component: resolve => require(["@/views/DataBase/ColumnAddModal"], resolve)
         }
       ]
     }, {
       path: '*/:msg?',
       name: 'Error',
+      meta: { title: '错误页' },
       component: resolve => require(['@/views/Error/Error404'], resolve)
     }
   ]

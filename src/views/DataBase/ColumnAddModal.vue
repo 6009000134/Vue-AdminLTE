@@ -1,88 +1,152 @@
 <template>
   <div>
-    <!-- <div class="modal fade in" id="modal-default" style="display:block;"> -->
-    <div class="modal fade" id="tableAdd">
-      <div class="modal-dialog dialog-width">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-            <h4 class="modal-title">弹出框</h4>
-          </div>
-          <div class="modal-body">
+    <section class="content-header">
+      <h1>
+        {{this.$route.meta.title}}
+        <small>新增</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li>
+          <a href="#">
+            <i class="fa fa-dashboard"></i> 首页
+          </a>
+        </li>
+        <li class="active">{{this.$route.meta.title}}</li>
+      </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box">
+            <div class="box-header">
+              <h3>标题</h3>
+            </div>
             <div class="form-horizontal">
-              <div class="form-group">
-                <div class="col-sm-4">
-                  <label class="control-label col-sm-4 padding-xs">数据库</label>
-                  <div class="col-sm-8 padding-xs">
-                    <f-select
-                      v-model="tableInfo2.DBCon"
-                      f-key="DBCon"
-                      f-value="DBName"
-                      :datasource="DBList"
-                    ></f-select>
+              <div class="box-body">
+                <div class="form-group">
+                  <label class="control-label col-sm-1">列名</label>
+                  <div class="col-sm-3">
+                    <div class="input-group">
+                      <input type="text" class="form-control" v-model="columnInfo.ColumnName" />
+                      <span class="input-group-addon">
+                        <a href="#" @click.prevent="columnInfo.ColumnName=''">
+                          <i class="glyphicon glyphicon-trash text-red"></i>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                  <label class="control-label col-sm-1">英文名称</label>
+                  <div class="col-sm-3">
+                    <div class="input-group">
+                      <input type="text" class="form-control" v-model="columnInfo.ColumnName_EN" />
+                      <span class="input-group-addon">
+                        <a href="#" @click.prevent="columnInfo.ColumnName_EN=''">
+                          <i class="glyphicon glyphicon-trash text-red"></i>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                  <label class="control-label col-sm-1">中文名称</label>
+                  <div class="col-sm-3">
+                    <div class="input-group">
+                      <input type="text" class="form-control" v-model="columnInfo.ColumnName_CN" />
+                      <span class="input-group-addon">
+                        <a href="#" @click.prevent="columnInfo.ColumnName_CN=''">
+                          <i class="glyphicon glyphicon-trash text-red"></i>
+                        </a>
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <label class="control-label col-md-4 padding-xs">表名</label>
-                  <div class="col-md-8 padding-xs">
-                    <input type="text" v-model="tableInfo2.TableName" class="form-control" />
+                <div class="form-group">
+                  <label class="control-label col-sm-1">类型</label>
+                  <div class="col-sm-3">
+                    <div class="input-group">
+                      <input type="text" class="form-control" v-model="columnInfo.ColumnName" />
+                      <span class="input-group-addon">
+                        <a href="#" @click.prevent="columnInfo.ColumnName=''">
+                          <i class="glyphicon glyphicon-trash text-red"></i>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                  <label class="control-label col-sm-1">尺寸</label>
+                  <div class="col-sm-3">
+                    <div class="input-group">
+                      <input type="text" class="form-control" v-model="columnInfo.ColumnName" />
+                      <span class="input-group-addon">
+                        <a href="#" @click.prevent="columnInfo.ColumnName=''">
+                          <i class="glyphicon glyphicon-trash text-red"></i>
+                        </a>
+                      </span>
+                    </div>
+                  </div>
+                  <label class="control-label col-sm-1">是否可空</label>
+                  <div class="col-sm-3">
+                    <div class="input-group">
+                      <input type="text" class="form-control" v-model="columnInfo.ColumnName" />
+                      <span class="input-group-addon">
+                        <a href="#" @click.prevent="columnInfo.ColumnName=''">
+                          <i class="glyphicon glyphicon-trash text-red"></i>
+                        </a>
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <label class="control-label col-md-4 padding-xs">中文名称</label>
-                  <div class="col-md-8 padding-xs">
-                    <input type="text" v-model="tableInfo2.TableName_CN" class="form-control" />
+                <div class="form-group">
+                  <label class="control-label col-sm-1">默认值</label>
+                  <div class="col-sm-3">
+                    <div class="input-group">
+                      <input type="text" class="form-control" v-model="columnInfo.ColumnName" />
+                      <span class="input-group-addon">
+                        <a href="#" @click.prevent="columnInfo.ColumnName=''">
+                          <i class="glyphicon glyphicon-trash text-red"></i>
+                        </a>
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-md-4">
-                  <label class="control-label col-md-4 padding-xs">英文名称</label>
-                  <div class="col-md-8 padding-xs">
-                    <input type="text" v-model="tableInfo2.TableName_EN" class="form-control" />
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <label class="control-label col-md-4 padding-xs">备注</label>
-                  <div class="col-md-8 padding-xs">
-                    <input type="text" v-model="tableInfo2.Remark" class="form-control" />
+                  <label class="control-label col-sm-1">备注</label>
+                  <div class="col-sm-3">
+                    <div class="input-group">
+                      <input type="text" class="form-control" v-model="columnInfo.ColumnName" />
+                      <span class="input-group-addon">
+                        <a href="#" @click.prevent="columnInfo.ColumnName=''">
+                          <i class="glyphicon glyphicon-trash text-red"></i>
+                        </a>
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">关闭</button>
-            <button type="button" class="btn btn-success" @click="save()">确定</button>
+            <div class="box-footer">
+              <!-- <button class="btn btn-success" @click="test()">测试</button> -->
+            </div>
           </div>
         </div>
-        <!-- /.modal-content -->
       </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
+    </section>
   </div>
 </template>
 <script>
-import $ from "jquery";
 import { getDBList } from "@/API/DB";
 import { addTable } from "@/API/Table";
 
 export default {
-  props: ["dbname", "status", "tableInfo2"],
   data() {
     return {
-      tableInfo: {
-        // DBInfo: undefined,
-        // Status: this.status,
-        // TableName: undefined,
-        // TableName_EN: undefined,
-        // TableName_CN: undefined,
-        // Remark: undefined
-      },
-      DBList: []
+      columnInfo: {
+        TableID: undefined,
+        ColumnName: undefined,
+        ColumnName_EN: undefined,
+        ColumnName_CN: undefined,
+        ColumnType: undefined,
+        Size: undefined,
+        IsNullable: undefined,
+        DefaultValue: undefined,
+        Remark: undefined
+      }
     };
   },
   created() {
@@ -96,43 +160,11 @@ export default {
     //   this.DBList=data.D;
     // });
   },
-  methods: {
-    save() {
-      let model = {
-        TableName: this.tableInfo2.TableName,
-        TableName_EN: this.tableInfo2.TableName_EN,
-        TableName_CN: this.tableInfo2.TableName_CN,
-        Remark: this.tableInfo2.Remark,
-        DBCon: this.tableInfo2.DBCon // ,
-        // DBTypeCode: this.tableInfo2.DBInfo.Value
-      };
-      addTable(model).then(res => {
-        console.log(res);
-        if (res.S) {
-          this.$toast.success({ message: "添加成功！" });
-          this.Status = false;
-          $("#tableAdd").modal("hide");
-          this.$emit("close", this.Status);
-        } else {
-          this.$toast.error({ message: "添加失败！" + res.M });
-        }
-      });
-    }
-  },
-  watch: {
-    Status() {
-      if (this.status) {
-        console.log("sss");
-      } else {
-        console.log("ddd");
-      }
-    }
-  },
-  mounted() {
-    getDBList().then(res => {
-      console.log(res.D);
-      this.DBList = res.D;
-    });
+  methods: {},
+  watch: {},
+  mounted() {},
+  create() {
+    this.columnInfo.TableID = this.$route.params.tableID;
   }
 };
 </script>

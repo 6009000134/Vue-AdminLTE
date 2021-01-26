@@ -1,12 +1,13 @@
 <template>
 <div class="wrapper">
   <navbar></navbar>
-  <sidebar></sidebar>
+  <sidemenu></sidemenu>
   <contentMain></contentMain>
 </div>
 </template>
 <script>
 import navbar from '@/layout/Navbar/navbar';
+import sidemenu from '@/layout/sidebar/sidemenu';
 import sidebar from '@/layout/sidebar/sidebar';
 import contentMain from '@/layout/ContentMain/contentMain';
 
@@ -15,6 +16,7 @@ export default {
   components: {
     navbar,
     sidebar,
+    sidemenu,
     contentMain
   }
 };
