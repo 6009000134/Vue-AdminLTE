@@ -23,4 +23,10 @@ var getDetail = (apiID) => {
 var createApiTable = (apiID) => {
   return httpService.post(controllerName + "CreateApiTable", apiID);
 };
-export { getApis, getApiDetail, testApi, getHtml, addApi, getDetail, createApiTable };
+var getApiResult = (inputData) => {
+  return httpService.post(controllerName + "GetApiResult", inputData);
+};
+var getDividendResult = (inputData) => {
+  return httpService.post(controllerName + "GetDividendResult", inputData);
+};
+export { getApis, getApiDetail, testApi, getHtml, addApi, getDetail, createApiTable, getApiResult, getDividendResult };

@@ -52,6 +52,10 @@
                       >
                         <i class="fa fa-search"></i>
                       </router-link>
+                      <router-link>
+                        <i class="fa fa-try"></i>
+                        获取数据
+                      </router-link>
                       <!-- <button class="btn btn-xs bg-purple" @click="Edit(item)">
                         <i class="fa fa-edit"></i>
                       </button>
@@ -62,7 +66,7 @@
                     <td>{{item.ID}}</td>
                     <td>{{item.Title}}</td>
                     <td>{{item.ApiName}}</td>
-                    <td>{{item.Descprition}}</td>
+                    <td>{{item.Description}}</td>
                   </tr>
                 </tbody>
               </table>
