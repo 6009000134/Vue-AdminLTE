@@ -117,6 +117,9 @@ export default {
     },
     showLoad() {
       this.showLoading = !this.showLoading;
+      setInterval(() => {
+        this.showLoading = !this.showLoading;
+      }, 3000);
     }
   },
   components: {

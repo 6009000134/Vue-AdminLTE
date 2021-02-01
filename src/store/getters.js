@@ -1,4 +1,5 @@
-const getters = {
-  name: state => state.user.name
+const myGetter = {
+  name: state => state.user.name,
+  isLoading: state => state.isLoading
 };
-export default getters;
+export default myGetter;

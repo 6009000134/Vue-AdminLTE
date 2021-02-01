@@ -1,17 +1,20 @@
 
 <template>
-<transition mode="out-in" name="fadem">
-  <div v-if="visiable">
-    <div class="modal fade in" :style="{display: display,background:'transparent',height:'300px'}">
-      <div class="box box-danger">
-        <div class="overlay" style="height:100px;">
-          <i class="fa fa-refresh fa-spin"></i>
+  <transition mode="out-in" name="fadem">
+      <div v-if="visiable"
+        class="modal fade in"
+        :style="{display: display,background:'transparent',height:'300px'}"
+      >
+        <div class="box box-danger">
+          <div class="overlay" style="height:300px;background:transparent">
+            <!-- <div class="overlay" style="height:300px;"> -->
+            <i class="fa fa-refresh fa-spin"></i>
+          </div>
         </div>
+        <!-- <div class="modal-backdrop fade in" style="height:100%;background:transparent"></div> -->
+        <div class="modal-backdrop fade in" style="height:100%;background:rgba(255, 255, 255, 0.7)"></div>
       </div>
-    </div>
-    <!-- /.box -->
-    <div class="modal-backdrop fade in" style="height:300px;background:transparent"></div>
-  </div>
+      <!-- /.box -->
   </transition>
 </template>
 <script>
@@ -50,22 +53,18 @@ export default {
 </script>
 
 <style>
-.dialog-width {
-  width: 900px;
-}
 .fadem-enter {
   opacity: 0;
-  transform: translateY(-30px);
+  /* transform: translateY(-300px); */
 }
-.fadem-leave-to{
-  transform: translateY(30px);
+.fadem-leave-to {
+  transform: translateY(-300px);
   opacity: 0;
 }
-.fadem-enter-active{
-transition: all .5s;
+.fadem-enter-active {
+  /* transition: all 0.1s; */
 }
-.fadem-leave-active{
-  transition: all .5s ;
+.fadem-leave-active {
+  transition: all 1s;
 }
 </style>
-

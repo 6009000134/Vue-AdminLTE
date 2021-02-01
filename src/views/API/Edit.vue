@@ -54,7 +54,8 @@
             </div>
             <div class="box-footer">
               <button @click="getApiResult()" class="btn btn-success">调用接口</button>
-              <button @click="getDividendResult()" class="btn btn-success">调用接口</button>
+              <button @click="getDividendResult()" class="btn btn-success">分红接口</button>
+              <button @click="getDividendResults()" class="btn btn-success">分红多线程接口</button>
             </div>
           </div>
         </div>
@@ -69,7 +70,8 @@ import {
   getDetail,
   createApiTable,
   getApiResult,
-  getDividendResult
+  getDividendResult,
+  getDividendResults
 } from "@/API/tushare/apis.js";
 export default {
   data() {
@@ -126,6 +128,12 @@ export default {
     },
     getDividendResult() {
       getDividendResult({
+        apiID: this.APIInfo.ID,
+        ts_code: ""
+      }).then(res => {});
+    },
+    getDividendResults() {
+      getDividendResults({
         apiID: this.APIInfo.ID,
         ts_code: ""
       }).then(res => {});

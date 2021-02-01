@@ -34,6 +34,7 @@ import eModal from '@/components/Modal/extendModal.vue';
 import VeeValidate, { Validator } from 'vee-validate';
 import vZhCN from 'vee-validate/dist/locale/zh_CN';
 import store from './store/index.js';
+import * as echarts from 'echarts';
 
 import fCompnents from '@/components/index.js';
 var toastrConfig = {
@@ -48,6 +49,7 @@ var toastrConfig = {
 };
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
+Vue.prototype.$echarts=echarts;
 // Vue.prototype.$qs = qs
 Vue.use(Toastr, toastrConfig);
 Vue.use(VeeValidate, {

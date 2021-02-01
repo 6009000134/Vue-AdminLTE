@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+// import myGetter from './getters';
 Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
@@ -7,7 +8,8 @@ const store = new Vuex.Store({
       name: '刘飞',
       account: ''
     },
-    token: ''
+    token: '',
+    isLoading: false
   },
   mutations: {
     setUserName(state, name) {
@@ -15,6 +17,9 @@ const store = new Vuex.Store({
     },
     setToken(state, token) {
       state.token = token;
+    },
+    setLoadState(state, isLoading) {
+      state.isLoading = isLoading;
     }
   }
 });

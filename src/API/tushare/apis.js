@@ -29,4 +29,7 @@ var getApiResult = (inputData) => {
 var getDividendResult = (inputData) => {
   return httpService.post(controllerName + "GetDividendResult", inputData);
 };
-export { getApis, getApiDetail, testApi, getHtml, addApi, getDetail, createApiTable, getApiResult, getDividendResult };
+var getDividendResults = (inputData) => {
+  return httpService.post(controllerName + "GetDividendResultMultiple", inputData);
+};
+export { getApis, getApiDetail, testApi, getHtml, addApi, getDetail, createApiTable, getApiResult, getDividendResult, getDividendResults };

@@ -25,6 +25,9 @@ httpService.interceptors.response.use(
       // else { // 模拟数据，正式环境注释掉此else
       //   localStorage.setItem('token', 'liufei');
       // }
+      console.log(store.state.isLoading, 1);
+      store.commit('setLoadState', false);
+      console.log(store.state.isLoading, 2);
       return response.data;
     }
   }, error => {
@@ -54,9 +57,8 @@ httpService.interceptors.response.use(
 );
 
 httpService.interceptors.request.use(function (config) {
-  config.data=JSON.stringify(config.data);
-  // console.log('request', config);
-  console.log(store.state.token);
+  store.commit('setLoadState', true);
+  config.data = JSON.stringify(config.data);
   if (store.state.token) {
     config.headers.token = store.state.token;
   } else if (getToken()) {

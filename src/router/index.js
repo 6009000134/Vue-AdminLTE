@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-
 Vue.use(Router);
 const defaultTitle = 'Auctus';
 const router = new Router({
@@ -82,6 +81,11 @@ const router = new Router({
           name: 'ColumnAdd',
           meta: { title: '新增列', menuName: '新增列' },
           component: resolve => require(["@/views/DataBase/ColumnAddModal"], resolve)
+        }, {
+          path: '/Chart',
+          name: 'Chart',
+          meta: { title: '图表', menuName: '图表' },
+          component: resolve => require(["@/views/Chart/chart"], resolve)
         }
       ]
     }, {
