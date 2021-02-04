@@ -11,10 +11,6 @@
               <i class="glyphicon glyphicon-plus"></i>
               新增
             </router-link>
-            <button class="form-control btn btn-success">
-              <i class="glyphicon glyphicon-plus"></i>
-              新增
-            </button>
             <div class="form-group">
               <div class="input-group">
                 <input class="form-control" v-model="columnName" placeholder="列名" />
@@ -33,7 +29,7 @@
                 </span>
               </div>
             </div>
-            <button class="form-control btn btn-success">
+            <button class="form-control btn btn-success" @click="DataBind()">
               <i class="glyphicon glyphicon-search"></i>
               查询
             </button>
@@ -91,19 +87,18 @@
           </table>
         </div>
       </div>
-      <f-pagination
-        :currentPage.sync="page.currentPage"
-        :pageSize="page.pageSize"
-        :pageIndex="page.pageIndex"
-        :totalCount="page.totalCount"
+      <pagination
+        :pageSize="page.PageSize"
+        :pageIndex.sync="page.PageIndex"
+        :totalCount="page.TotalCount"
         @pageChange="DataBind"
-      ></f-pagination>
+      ></pagination>
     </section>
   </div>
 </template>
 
 <script>
-import { getColumnList } from "@/API/Column";
+import { getTableDetail } from "@/API/Table";
 export default {
   data() {
     return {
@@ -111,41 +106,32 @@ export default {
       columnName: "",
       columnName_CN: "",
       List: [],
-      page: { pageSize: 10, pageIndex: 1, currentPage: 1, totalCount: 0 }
+      page: { PageSize: 2, PageIndex: 1, TotalCount: 0 }
     };
   },
   methods: {
     goBack() {
       this.$router.go(-1);
     },
-    getColumnList() {
-      getColumnList(this.tabldID).then(response => {
+    DataBind() {
+      getTableDetail({
+        tableID: this.tableID,
+        page: this.page
+      }).then(response => {
+        console.log(response.D);
         if (response.S) {
-          this.List = response.D;
+          this.tableInfo = response.D.Table[0];
+          this.List = response.D.Table1;
+          this.page.TotalCount = response.D.Table2[0].TotalCount;
         } else {
           this.$toast.error({ message: response.M });
         }
       });
-    },
-    DataBind() {
-      // TODO:列数据绑定
-      console.log("bind");
     }
   },
-  created() {
-    this.tableID = this.$route.params.tableID;
-    console.log(this.$route);
-    console.log(this.$router);
-  },
   mounted() {
-    getColumnList(this.tableID).then(res => {
-      console.log(res.D);
-      if (res.S) {
-        this.List = res.D;
-      } else {
-        this.$toast.error({ message: res.M });
-      }
-    });
+    this.tableID = this.$route.params.tableID;
+    this.DataBind();
   }
 };
 </script>
