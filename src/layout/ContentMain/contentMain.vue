@@ -1,61 +1,14 @@
 <template>
-<div class="content-wrapper" style="min-height: 921px;">
-    <transition name="fade" mode="out-in">
-    <router-view></router-view>
-    </transition>
-    <!-- Content Header (Page header) -->
-    <!-- <section class="content-header">
-      <h1>
-        Dashboard
-        <small>Control panel</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Dashboard</li>
-      </ol>
-    </section> -->
-
-    <!-- Main content -->
-    <!-- <section class="content">
-      <div class="row">
-      </div>
-
-    </section> -->
-    <!-- /.content -->
+  <div class="content-wrapper fade-item" style="min-height: 921px;">
+    <contentTop></contentTop>
+    <router-view class="fade-item"></router-view>
   </div>
 </template>
-
 <script>
-export default{
-
+import contentTop from "./contentTop";
+export default {
+  components: {
+    contentTop
+  }
 };
 </script>
-<style>
-.fade-enter {
-  opacity: 0;
-  transform: translateX(-30px);
-}
-.fade-leave-to{
-  transform: translateX(30px);
-  opacity: 0;
-}
-.fade-enter-active{
-transition: all .5s;
-}
-.fade-leave-active{
-  transition: all .5s ;
-}
-/* .fade-enter {
-  opacity:0;
-}
-.fade-leave{
-  opacity:1;
-}
-.fade-enter-active{
-  transition:opacity .5s;
-}
-.fade-leave-active{
-  opacity:0;
-  transition:opacity .5s;
-} */
-</style>

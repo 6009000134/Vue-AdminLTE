@@ -30,23 +30,53 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu tree" data-widget="tree">
           <li
-            v-for="(item,key) in $router.options.routes"
+            v-for="(item,key) in routeList"
             :key="key"
-            class="treeview"
+            :class="{'treeview':item.meta.hasChildren}"
           >
-            <a href="javascript:void()">
+            <router-link v-if="!item.meta.hasChildren" :to="item.path">
+              <i class="fa fa-circle-o"></i>
+              <span>{{item.meta.title}}</span>
+            </router-link>
+            <a v-if="item.meta.hasChildren" href="javascript:void()">
               <i class="fa fa-dashboard"></i>
               <span>{{item.meta.title}}</span>
               <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">
-              <li :class="{'active':v.name==$route.name}" v-for="(v,k) in item.children" :key="k">
-                <router-link :to="v.path">
+            <ul v-if="item.meta.hasChildren" class="treeview-menu">
+              <li
+                v-for="(v,k) in item.children"
+                :key="k"
+                :class="{'active':v.name==$route.name,'treeview':v.meta.hasChildren}"
+              >
+                <router-link v-if="!v.meta.hasChildren" :to="v.path">
                   <i class="fa fa-circle-o"></i>
                   {{v.meta.title}}
                 </router-link>
+                <a v-if="v.meta.hasChildren" href="javascript:void()">
+                  <i class="fa fa-dashboard"></i>
+                  <span>{{v.meta.title}}</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul v-if="v.meta.hasChildren" class="treeview-menu">
+                  <li
+                    v-for="(vc,kc) in v.children"
+                    :key="kc"
+                    :class="{'active':vc.name==$route.name}"
+                  >
+                    <router-link :to="v.path+'/'+vc.path">
+                      <i class="fa fa-dashboard"></i>
+                      <span>{{vc.meta.title}}</span>
+                      <span v-if="vc.meta.hasChildren" class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                      </span>
+                    </router-link>
+                  </li>
+                </ul>
               </li>
             </ul>
           </li>
@@ -64,7 +94,7 @@
             <ul class="treeview-menu">
               <li class="active">
                 <router-link to="/Dashboard">
-                  <i class="fa fa-circle-o"></i> 首页
+                  <i class="fa fa-circle-o"></i> 看板
                 </router-link>
               </li>
               <li class>
@@ -226,7 +256,7 @@
       {{routeList}}
     </pre>
       </div>
-    </div> -->
+    </div>-->
   </div>
 </template>
 <script>
@@ -237,35 +267,22 @@ export default {
       routeList: []
     };
   },
-  methods: {
-    getMenus(element) {
-      if (element.children) {
-        element.children.forEach(el2 => {
-          this.routeList.push({
-            name: element.name,
-            path: element.path,
-            meta: element.meta,
-            children: []
-          });
-          this.getMenus(el2);
-        });
-      } else {
-        this.routeList.push({
-          name: element.name,
-          path: element.path,
-          meta: element.meta,
-          children: []
-        });
-      }
-    }
-  },
+  methods: {},
   mounted() {
-    // this.routeList = this.$router.options.routes;
-    this.$router.options.routes.forEach(element => {
-      this.getMenus(element);
+    // TODO:修改成从数据库读取用户菜单权限
+    var menus = this.$router.options.routes.filter(function(
+      item,
+      index,
+      array
+    ) {
+      return item.path === "/Auctus";
     });
-    // console.log(this.routeList);
-    // console.log(this.routeList);
+    if (menus.length > 0) {
+      this.routeList = menus[0].children;
+    } else {
+      this.$toast.error({ message: "菜单加载失败！" });
+    }
+    console.log(this.routeList);
   },
   created: function() {
     treemenu();

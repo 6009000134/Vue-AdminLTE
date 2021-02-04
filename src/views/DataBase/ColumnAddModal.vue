@@ -1,19 +1,5 @@
 <template>
   <div>
-    <section class="content-header">
-      <h1>
-        {{this.$route.meta.title}}
-        <small>新增</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li>
-          <a href="#">
-            <i class="fa fa-dashboard"></i> 首页
-          </a>
-        </li>
-        <li class="active">{{this.$route.meta.title}}</li>
-      </ol>
-    </section>
     <!-- Main content -->
     <section class="content">
       <div class="row">

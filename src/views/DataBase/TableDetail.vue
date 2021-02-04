@@ -1,19 +1,5 @@
 <template>
   <div>
-    <section class="content-header">
-      <h1>
-        数据表
-        <small>列表</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li>
-          <a href="#">
-            <i class="fa fa-dashboard"></i> 首页
-          </a>
-        </li>
-        <li class="active">数据表</li>
-      </ol>
-    </section>
     <section class="content">
       <div class="box box-primary">
         <div class="box-header">
