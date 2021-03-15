@@ -139,7 +139,6 @@ export default {
           }
         })
         .catch(function(data) {
-          console.log("exceptions:", data);
         });
     },
     getDBList() {
@@ -149,7 +148,6 @@ export default {
           return res.D;
         })
         .catch(function(data) {
-          console.log("ex", data);
         });
     },
     Add() {
@@ -166,7 +164,6 @@ export default {
     },
     Delete(id) {
       // TODO:弹出床交互
-      console.log(id);
       if (confirm("是否要删除表")) {
         deleteTable(id).then(res => {
           if (res.S) {
@@ -179,7 +176,6 @@ export default {
       }
     },
     Edit(item) {
-      console.log(item);
       this.DialogStatus = true;
       this.tableInfo = {
         DBCon: item.DBCon,
@@ -192,7 +188,6 @@ export default {
       $("#tableAdd").modal("show");
     },
     dialogClose(data) {
-      console.log("close", data);
     }
   },
   components: {

@@ -15,7 +15,6 @@ export default {
   methods: {
     showInput() {
       // this.value=e.target.value;
-      console.log(this.d);
       this.$emit("input", this.d);
     }
   }

@@ -27,6 +27,7 @@ const router = new Router({
       name: 'Index',
       meta: { title: '首页', hasChildren: true },
       component: () => import('@/views/Index'),
+      redirect: { name: 'Test' },
       children: [
         {
           path: '/Auctus/Test',
@@ -43,7 +44,7 @@ const router = new Router({
           name: 'APIS',
           meta: { title: 'TuShare接口', menuName: 'TuShare接口', hasChildren: true },
           component: () => import('@/views/API/APIs'),
-          redirect: 'List',
+          redirect: { name: 'APIList' },
           children: [
             {
               path: 'List',
@@ -78,15 +79,16 @@ const router = new Router({
           meta: { title: '表详情', menuName: '表详情', hasChildren: false },
           component: resolve => require(["@/views/DataBase/TableDetail"], resolve)
         }, {
-          path: '/Auctus/ColumnAddModal/:tableID',
+          path: '/Auctus/Column/Add/:tableID',
           name: 'ColumnAdd',
           meta: { title: '新增列', menuName: '新增列', hasChildren: false },
-          component: resolve => require(["@/views/DataBase/ColumnAddModal"], resolve)
+          component: resolve => require(["@/views/DataBase/Column/Add"], resolve)
         }, {
           path: '/Auctus/Chart',
           name: 'Chart',
           meta: { title: '图表', menuName: '图表', hasChildren: true },
           component: resolve => require(["@/views/Chart/chart"], resolve),
+          redirect: { name: 'ChartDemo' },
           children: [
             {
               path: 'Demo',

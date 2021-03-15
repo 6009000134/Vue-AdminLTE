@@ -43,7 +43,6 @@ export default {
     change(e) {
       // if (this.rt === "k") {
       //   this.$emit("input",this.value=this.selectedItem.Key);
-      //   // console.log('selectedItemIndex',e.target.selectedIndex);
       // } else if (this.rt === "v") {
       //   this.$emit("input",this.value=this.selectedItem.Value);
       // } else {
@@ -62,7 +61,6 @@ export default {
       this.selectedItem = n;
     }
   },mounted(){
-    console.log(this.selectedItem);
   }
 };
 </script>

@@ -14,7 +14,6 @@ const httpService = axios.create({
 
 httpService.interceptors.response.use(
   response => {
-    /// console.log('Response', response);
     if (response.status === 200) {
       if (response.headers.token) {
         setToken(response.headers.token);
@@ -25,9 +24,7 @@ httpService.interceptors.response.use(
       // else { // 模拟数据，正式环境注释掉此else
       //   localStorage.setItem('token', 'liufei');
       // }
-      console.log(store.state.isLoading, 1);
       store.commit('setLoadState', false);
-      console.log(store.state.isLoading, 2);
       return response.data;
     }
   }, error => {
@@ -66,7 +63,6 @@ httpService.interceptors.request.use(function (config) {
   }
   return config;
 }, error => {
-  console.log('requestError', error);
   return Promise.reject(error);
 });
 

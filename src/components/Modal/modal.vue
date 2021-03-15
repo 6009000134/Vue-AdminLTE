@@ -35,7 +35,6 @@ export default {
   props: ["title", "ids", "content"],
   methods: {
     showData() {
-      console.log("this.ids");
     }
   }
 };

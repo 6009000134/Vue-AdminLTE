@@ -214,7 +214,6 @@ export default {
       };
       addApi(apiInfo).then(res => {
         if (res.S) {
-          console.log(res);
         } else {
           this.$toast.error({ message: res.M });
         }
@@ -294,12 +293,10 @@ export default {
           }
         }
       }
-      console.log(str);
 
       str = str.substring(0, str.length - 1);
       str += '"';
       str += "}";
-      console.log(str);
       this.sendData = JSON.parse(str);
       var testJson = {
         url: "http://api.tushare.pro",

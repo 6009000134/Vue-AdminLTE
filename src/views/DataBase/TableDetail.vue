@@ -118,7 +118,6 @@ export default {
         tableID: this.tableID,
         page: this.page
       }).then(response => {
-        console.log(response.D);
         if (response.S) {
           this.tableInfo = response.D.Table[0];
           this.List = response.D.Table1;
@@ -132,6 +131,7 @@ export default {
   mounted() {
     this.tableID = this.$route.params.tableID;
     this.DataBind();
+    console.log(this.$route.matched, 123);
   }
 };
 </script>

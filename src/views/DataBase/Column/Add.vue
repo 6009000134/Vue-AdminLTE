@@ -116,8 +116,8 @@
   </div>
 </template>
 <script>
-import { getDBList } from "@/API/DB";
-import { addTable } from "@/API/Table";
+// import { getDBList } from "@/API/DB";
+// import { addTable } from "@/API/Table";
 
 export default {
   data() {
@@ -141,8 +141,6 @@ export default {
     // });
     // 此种用法会报DBList undefined，因为此处的this不是vue对象
     //   getDBList().then(function(data) {
-    //   console.log(data.D);
-    //   console.log(1,this.DBName);
     //   this.DBList=data.D;
     // });
   },

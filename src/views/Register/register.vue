@@ -129,7 +129,6 @@ export default {
           }
           register(this.User)
             .then(res => {
-              console.log(res);
               if (res.S) {
                 this.$toast.success({ message: "error" });
               } else {

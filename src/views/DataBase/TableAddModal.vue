@@ -91,8 +91,6 @@ export default {
     // });
     // 此种用法会报DBList undefined，因为此处的this不是vue对象
     //   getDBList().then(function(data) {
-    //   console.log(data.D);
-    //   console.log(1,this.DBName);
     //   this.DBList=data.D;
     // });
   },
@@ -107,7 +105,6 @@ export default {
         // DBTypeCode: this.tableInfo2.DBInfo.Value
       };
       addTable(model).then(res => {
-        console.log(res);
         if (res.S) {
           this.$toast.success({ message: "添加成功！" });
           this.Status = false;
@@ -122,15 +119,12 @@ export default {
   watch: {
     Status() {
       if (this.status) {
-        console.log("sss");
       } else {
-        console.log("ddd");
       }
     }
   },
   mounted() {
     getDBList().then(res => {
-      console.log(res.D);
       this.DBList = res.D;
     });
   }

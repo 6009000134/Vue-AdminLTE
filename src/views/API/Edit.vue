@@ -72,7 +72,6 @@ export default {
     createApiTable() {
       createApiTable(this.$route.params.ID).then(res => {
         if (res.S) {
-          console.log(res.D);
         } else {
           this.$toast.error({ message: res.M });
         }
@@ -97,7 +96,6 @@ export default {
       str = str.substring(0, str.length - 1);
       str += '"';
       str += "}";
-      console.log(str);
       this.sendData = JSON.parse(str);
       var inputData = {
         url: "http://api.tushare.pro",
@@ -135,7 +133,6 @@ export default {
           return Object.assign(item, { value: "" });
         });
         this.updateView = "2";
-        console.log(this.InputList);
       } else {
         this.$toast.error({ message: res.M });
       }

@@ -2,16 +2,21 @@
   <div class="wrapper">
     <navbar></navbar>
     <sidemenu></sidemenu>
-    <transition name="fade" mode="out-in">
-      <contentMain></contentMain>
-    </transition>
+    <div class="content-wrapper" style="min-height: 921px;">
+      <contentTop></contentTop>
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
+    </div>
+    <!-- <contentMain></contentMain> -->
   </div>
 </template>
 <script>
 import navbar from "@/layout/Navbar/navbar";
 import sidemenu from "@/layout/sidebar/sidemenu";
 import sidebar from "@/layout/sidebar/sidebar";
-import contentMain from "@/layout/ContentMain/contentMain";
+// import contentMain from "@/layout/ContentMain/contentMain";
+import contentTop from "@/layout/ContentMain/contentTop";
 
 export default {
   name: "index2",
@@ -19,7 +24,8 @@ export default {
     navbar,
     sidebar,
     sidemenu,
-    contentMain
+    // contentMain,
+    contentTop
   }
 };
 </script>

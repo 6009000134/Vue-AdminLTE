@@ -11,8 +11,11 @@ var addTable = (data) => {
 };
 var editTable = (data) => {
   return httpService.post(controllerName + "Edit", data);
-}
+};
 var deleteTable = (data) => {
-  return httpService.post(controllerName + "Delete", data)
-}
-export { getTableList, addTable, editTable, deleteTable };
+  return httpService.post(controllerName + "Delete", data);
+};
+var getTableDetail = (data) => {
+  return httpService.post(controllerName + "GetDetail", data);
+};
+export { getTableList, addTable, editTable, deleteTable, getTableDetail };

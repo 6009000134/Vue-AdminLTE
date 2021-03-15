@@ -1,7 +1,7 @@
 <template>
-  <div class="content-wrapper fade-item" style="min-height: 921px;">
+  <div class="content-wrapper" style="min-height: 921px;">
     <contentTop></contentTop>
-    <router-view class="fade-item"></router-view>
+    <router-view ></router-view>
   </div>
 </template>
 <script>

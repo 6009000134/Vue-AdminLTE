@@ -7,8 +7,7 @@
 </template>
 <script>
 export default {
-  mounter() {
-    console.log(this.$router);
+  mounted() {
   }
 };
 </script>

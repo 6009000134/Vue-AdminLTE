@@ -57,7 +57,7 @@ Vue.use(VeeValidate, {
     zh_CN: vZhCN
   }
 });
-Vue.component('f-pagination', fCompnents.pagination);
+Vue.component('pagination', fCompnents.pagination);
 Vue.component('f-select', fCompnents.select);
 Validator.localize('zh_CN');
 /* eslint-disable no-new */

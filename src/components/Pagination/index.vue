@@ -1,25 +1,27 @@
 <template>
   <div v-if="pageSize<totalCount" class="text-right form-inline">
     <ul class="pagination">
-      <li class="paginate_button previous" :class="{'disabled':currentPage==1}">
-        <a href="#" @click.prevent="pageChange(1)">{{firstTxt}}</a>
+      <li class="paginate_button previous" :class="{'disabled':pageIndex==1}">
+        <a v-if="pageIndex==1" href="javascript:void()">{{firstTxt}}</a>
+        <a v-if="pageIndex>1" href="#" @click.prevent="pageChange(1)">{{firstTxt}}</a>
       </li>
       <li
         v-for=" (i,index) in totalPage"
         :key="index"
         class="paginate_button"
-        :class="{'active':i==currentPage}"
+        :class="{'active':i==pageIndex}"
       >
         <a href="#" @click.prevent="pageChange(i)">{{i}}</a>
       </li>
-      <li class="paginate_button next" :class="{'disabled':currentPage==totalPage}">
-        <a href="#" @click.prevent="pageChange(totalPage)">{{lastTxt}}</a>
+      <li class="paginate_button next" :class="{'disabled':pageIndex==totalPage}">
+        <a v-if="pageIndex==totalPage" href="javascript:void()">{{lastTxt}}</a>
+        <a v-if="pageIndex<totalPage" href="#" @click.prevent="pageChange(totalPage)">{{lastTxt}}</a>
       </li>
     </ul>
     <!-- <div class="inline">
       <button class="btn btn-primary pull-right">跳转</button>
       <input type="text" class="form-control pull-right margin-r-5" style="width:60px;" />
-    </div> -->
+    </div>-->
   </div>
 </template>
 <script>
@@ -43,12 +45,6 @@ export default {
         return 110;
       }
     },
-    currentPage: {
-      type: Number,
-      default: () => {
-        return 1;
-      }
-    },
     firstTxt: {
       type: String,
       default: () => {
@@ -64,13 +60,26 @@ export default {
   },
   data() {
     return {
-      totalPage: Math.ceil(this.totalCount / this.pageSize)
+      totalPage: Math.ceil(this.totalCount / this.pageSize),
+      disabled: false
     };
   },
   methods: {
     pageChange(i) {
-      this.$emit("update:currentPage", i);
+      this.$emit("update:pageIndex", i);
       this.$emit("pageChange");
+    }
+  },
+  watch: {
+    pageIndex: function(val) {
+      if (val === 1) {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+    },
+    totalCount: function() {
+      this.totalPage = Math.ceil(this.totalCount / this.pageSize);
     }
   }
 };

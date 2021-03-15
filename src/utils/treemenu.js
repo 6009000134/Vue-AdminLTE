@@ -1,5 +1,5 @@
 import $ from 'jquery';
-export default function treeMenuFn () {
+export default function treeMenuFn() {
   'use strict';
 
   var DataKey = 'lte.tree';
@@ -32,18 +32,18 @@ export default function treeMenuFn () {
 
   // Tree Class Definition
   // =====================
-  var Tree = function (element,options) {
+  var Tree = function (element, options) {
     this.element = element;
     this.options = options;
 
     $(this.element).addClass(ClassName.tree);
 
-    $(Selector.treeview + Selector.active,this.element).addClass(ClassName.open);
+    $(Selector.treeview + Selector.active, this.element).addClass(ClassName.open);
 
     this._setUpListeners();
   };
 
-  Tree.prototype.toggle = function (link,event) {
+  Tree.prototype.toggle = function (link, event) {
     var treeviewMenu = link.next(Selector.treeviewMenu);
     var parentLi = link.parent();
     var isOpen = parentLi.hasClass(ClassName.open);
@@ -57,34 +57,34 @@ export default function treeMenuFn () {
     }
 
     if (isOpen) {
-      this.collapse(treeviewMenu,parentLi);
+      this.collapse(treeviewMenu, parentLi);
     } else {
-      this.expand(treeviewMenu,parentLi);
+      this.expand(treeviewMenu, parentLi);
     }
   };
 
-  Tree.prototype.expand = function (tree,parent) {
+  Tree.prototype.expand = function (tree, parent) {
     var expandedEvent = $.Event(Event.expanded);
 
     if (this.options.accordion) {
       var openMenuLi = parent.siblings(Selector.open);
       var openTree = openMenuLi.children(Selector.treeviewMenu);
-      this.collapse(openTree,openMenuLi);
+      this.collapse(openTree, openMenuLi);
     }
 
     parent.addClass(ClassName.open);
-    tree.stop().slideDown(this.options.animationSpeed,function () {
+    tree.stop().slideDown(this.options.animationSpeed, function () {
       $(this.element).trigger(expandedEvent);
       parent.height('auto');
     }.bind(this));
   };
 
-  Tree.prototype.collapse = function (tree,parentLi) {
+  Tree.prototype.collapse = function (tree, parentLi) {
     var collapsedEvent = $.Event(Event.collapsed);
 
     // tree.find(Selector.open).removeClass(ClassName.open);
     parentLi.removeClass(ClassName.open);
-    tree.stop().slideUp(this.options.animationSpeed,function () {
+    tree.stop().slideUp(this.options.animationSpeed, function () {
       // tree.find(Selector.open + ' > ' + Selector.treeview).slideUp();
       $(this.element).trigger(collapsedEvent);
 
@@ -98,21 +98,21 @@ export default function treeMenuFn () {
   Tree.prototype._setUpListeners = function () {
     var that = this;
 
-    $(this.element).on('click',this.options.trigger,function (event) {
-      that.toggle($(this),event);
+    $(this.element).on('click', this.options.trigger, function (event) {
+      that.toggle($(this), event);
     });
   };
 
   // Plugin Definition
   // =================
-  function Plugin (option) {
+  function Plugin(option) {
     return this.each(function () {
       var $this = $(this);
       var data = $this.data(DataKey);
 
       if (!data) {
-        var options = $.extend({},Default,$this.data(),typeof option === 'object' && option);
-        $this.data(DataKey,new Tree($this,options));
+        var options = $.extend({}, Default, $this.data(), typeof option === 'object' && option);
+        $this.data(DataKey, new Tree($this, options));
       }
     });
   }
@@ -127,19 +127,6 @@ export default function treeMenuFn () {
     return this;
   };
 
-  // Tree Data API
-  // =============
-  // $(window).on('load', function () {
-  //   console.log($(Selector.data))
-  //   if ($(Selector.data)) {
-  //     console.log('exists')
-  //   } else {
-  //     console.log('not exists')
-  //   }
-  //   $(Selector.data).each(function () {
-  //     Plugin.call($(this))
-  //   })
-  // })
   $(document).ready(function () {
     $(Selector.data).each(function () {
       Plugin.call($(this));

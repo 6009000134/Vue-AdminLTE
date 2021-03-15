@@ -40,7 +40,6 @@ export default {
   created() {
     getDBList()
       .then(res => {
-        console.log('asd8asd8a');
         return res.D;
       })
       .catch(error => {
