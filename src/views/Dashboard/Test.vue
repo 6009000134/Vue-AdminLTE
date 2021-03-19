@@ -95,6 +95,9 @@
     </div>
     <button @click="showModal()">弹窗</button>
     <button @click="showLoad()">加载</button>
+    <button @click="sendSingleObject">POST单个对象</button>
+    <button @click="sendMultObject">POST对象+基础对象</button>
+    <button @click="sendMultObject2">POST多个对象</button>
     <router-link :to="{name:'TableAdd'}">ss</router-link>
     <router-view></router-view>
   </div>
@@ -103,6 +106,7 @@
 import TestCom from "@/components/Test/TestCom";
 import emodal from "@/components/Modal/extendModal.vue";
 import load from "@/components/Modal/loading.vue";
+import { getList, getListMultObject, getListMultObject2 } from "@/API/test";
 export default {
   data() {
     return {
@@ -120,6 +124,27 @@ export default {
       setInterval(() => {
         this.showLoading = !this.showLoading;
       }, 3000);
+    },
+    sendSingleObject() {
+      getList([{ name: "123" }, { name: "234" }]).then(res => {
+        console.log(res.D);
+      });
+    },
+    sendMultObject() {
+      getListMultObject({
+        qd: [{ name: "123" }],
+        name: "asd"
+      }).then(res => {
+        console.log(res.D);
+      });
+    },
+    sendMultObject2() {
+      getListMultObject2({
+        qd: [{ name: "123" }],
+        qd2: [{ name: "123" }, { name: "ad2" }]
+      }).then(res => {
+        console.log(res.D);
+      });
     }
   },
   components: {

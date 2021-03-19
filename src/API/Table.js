@@ -4,6 +4,7 @@ const controllerName = 'Basic/Table/';
 
 var getTableList = (data) => {
   // return {S: true,M: '',D: null};
+  console.log(data, 'par');
   return httpService.post(controllerName + "List", data);
 };
 var addTable = (data) => {

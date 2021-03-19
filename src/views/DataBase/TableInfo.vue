@@ -138,8 +138,7 @@ export default {
             this.$toast.error({ message: res.M });
           }
         })
-        .catch(function(data) {
-        });
+        .catch(function(data) {});
     },
     getDBList() {
       getDBList()
@@ -147,8 +146,7 @@ export default {
           this.DBList = res.D;
           return res.D;
         })
-        .catch(function(data) {
-        });
+        .catch(function(data) {});
     },
     Add() {
       this.DialogStatus = true;
@@ -187,8 +185,7 @@ export default {
       };
       $("#tableAdd").modal("show");
     },
-    dialogClose(data) {
-    }
+    dialogClose(data) {}
   },
   components: {
     modal: resolve => require(["@/views/DataBase/TableAddModal"], resolve),
