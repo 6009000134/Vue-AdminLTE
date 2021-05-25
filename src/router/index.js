@@ -17,6 +17,12 @@ const router = new Router({
       name: 'Login',
       meta: { title: '登录', hasChildren: false },
       component: resolve => require(['@/views/Login/login'], resolve)
+    },
+    {
+      path: '/Test',
+      name: 'Test',
+      meta: { title: '测试', hasChildren: false },
+      component: resolve => require(['@/views/Login/Test'], resolve)
     }, {
       path: '/Register',
       name: 'Register',
@@ -95,6 +101,11 @@ const router = new Router({
               name: 'ChartDemo',
               meta: { title: 'Demo', menuName: 'Demo', hasChildren: false },
               component: resolve => require(["@/views/Chart/demo"], resolve)
+            }, {
+              path: 'OAChart',
+              name: 'OAChart',
+              meta: { title: 'OAChart', menuName: 'OA图表', hasChildren: false },
+              component: resolve => require(["@/views/Chart/oachart"], resolve)
             }
           ]
         }
