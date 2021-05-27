@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="container">
+    <section class>
       <div class="row">
         <div class="col-md-3">
           <div class="list-group">
@@ -42,19 +42,19 @@
             <div class="collapse" id="collapseExample1">
               <div class="checkbox well">
                 <label>
-                  <input type="checkbox" value="0" /> 发生阶段
+                  <input type="checkbox" value="6" /> 发生阶段
                 </label>
                 <label>
-                  <input type="checkbox" value="0" /> 故障大类
+                  <input type="checkbox" value="7" /> 故障大类
                 </label>
                 <label>
-                  <input type="checkbox" value="0" /> 故障小类
+                  <input type="checkbox" value="8" /> 故障小类
                 </label>
                 <label>
-                  <input type="checkbox" value="0" /> 故障等级
+                  <input type="checkbox" value="9" /> 故障等级
                 </label>
                 <label>
-                  <input type="checkbox" value="0" /> 问题责任分类
+                  <input type="checkbox" value="10" /> 问题责任分类
                 </label>
               </div>
             </div>
@@ -96,16 +96,16 @@
             <div class="collapse" id="collapseExample3">
               <div class="checkbox well">
                 <label>
-                  <input type="checkbox" value="0" /> 故障大类
+                  <input type="checkbox" value="16" /> 故障大类
                 </label>
                 <label>
-                  <input type="checkbox" value="0" /> 故障等级
+                  <input type="checkbox" value="17" /> 故障等级
                 </label>
                 <label>
-                  <input type="checkbox" value="0" /> 责任分类
+                  <input type="checkbox" value="18" /> 责任分类
                 </label>
                 <label>
-                  <input type="checkbox" value="0" /> 超时数
+                  <input type="checkbox" value="19" /> 超时数
                 </label>
               </div>
             </div>
@@ -156,11 +156,19 @@ export default {
       if (cbArray.length > 0) {
         for (var i = 0; i < cbArray.length; i++) {
           types += $(cbArray[i]).val() + ",";
-          html =
-            html +
-            "<div style='height:400px;' id='main" +
-            $(cbArray[i]).val() +
-            "'></div>";
+          if ($(cbArray[i]).val().toString() === '4') {
+            html =
+              html +
+              "<div style='height:700px;' id='main" +
+              $(cbArray[i]).val() +
+              "'></div>";
+          } else {
+            html =
+              html +
+              "<div style='height:400px;' id='main" +
+              $(cbArray[i]).val() +
+              "'></div>";
+          }
         }
       }
       $("#chartbox").append(html);
@@ -177,16 +185,16 @@ export default {
             let myChart = this.$echarts.init(
               document.getElementById(res.D[i].DomID)
             );
-      // var option2 = {
-      //         legend: {
-      //           orient: "vertical",
-      //           left: "left"
-      //         },
-      //         title: res.D[i].title,
-      //         title: res.D[i].title,
-      //         dataset: res.D[i].dataset,
-      //         series: res.D[i].series
-      //       };
+            // var option2 = {
+            //         legend: {
+            //           orient: "vertical",
+            //           left: "left"
+            //         },
+            //         title: res.D[i].title,
+            //         title: res.D[i].title,
+            //         dataset: res.D[i].dataset,
+            //         series: res.D[i].series
+            //       };
             myChart.setOption(res.D[i]);
             window.addEventListener("resize", function() {
               myChart.resize();
