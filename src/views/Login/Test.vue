@@ -69,19 +69,19 @@
             <div class="collapse" id="collapseExample2">
               <div class="checkbox well">
                 <label>
-                  <input type="checkbox" value="0" /> Bug状态下严重等级
+                  <input type="checkbox" value="11" /> Bug状态下严重等级
                 </label>
                 <label>
-                  <input type="checkbox" value="0" /> 发生阶段下严重等级
+                  <input type="checkbox" value="12" /> 发生阶段下严重等级
                 </label>
                 <label>
-                  <input type="checkbox" value="0" /> 故障大类下的故障小类
+                  <input type="checkbox" value="13" /> 故障大类下的故障小类
                 </label>
                 <label>
-                  <input type="checkbox" value="0" /> 故障大类下的故障等级
+                  <input type="checkbox" value="14" /> 故障大类下的故障等级
                 </label>
                 <label>
-                  <input type="checkbox" value="0" /> 发生阶段下的问题责任分类
+                  <input type="checkbox" value="15" /> 发生阶段下的问题责任分类
                 </label>
               </div>
             </div>
@@ -156,7 +156,11 @@ export default {
       if (cbArray.length > 0) {
         for (var i = 0; i < cbArray.length; i++) {
           types += $(cbArray[i]).val() + ",";
-          if ($(cbArray[i]).val().toString() === '4') {
+          if (
+            $(cbArray[i])
+              .val()
+              .toString() === "4"
+          ) {
             html =
               html +
               "<div style='height:700px;' id='main" +
@@ -179,6 +183,11 @@ export default {
 
       data.xmbm = "09BEF1B2-5C0E-415A-A4DE-0B7AA2AE4BC5";
       getData(data).then(res => {
+        console.log(res);
+        if (!res.S) {
+          this.$toast.error({ message: res.M });
+          return;
+        }
         console.log(res.D);
         if (res.D.length > 0) {
           for (var i = 0; i < cbArray.length; i++) {

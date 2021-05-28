@@ -62,11 +62,11 @@ httpService.interceptors.request.use(function (config) {
     config.headers.token = getToken();
   }
   if (config.headers && config.headers["Content-Type"]) {
-    console.log(config.headers["Content-Type"],"Content-Type");
+    // console.log(config.headers["Content-Type"],"Content-Type");
   } else {
     config.headers["Content-Type"] = "application/json";
   }
-  console.log(config, 'config');
+  // console.log(config, 'config');
   return config;
 }, error => {
   return Promise.reject(error);
