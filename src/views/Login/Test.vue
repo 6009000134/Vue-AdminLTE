@@ -110,8 +110,10 @@
               </div>
             </div>
           </div>
-          <button class="btn btn-success" @click="getData">画图</button>
-          <button class="btn btn-success" @click="clear">清空</button>
+          <button class="btn btn-success" id="btnDraw" @click="getData">画图</button>
+          <button class="btn btn-success" id="btnClear" @click="clear">清空</button>
+          <!-- <button class="btn btn-success" id="btnDraw">画图</button>
+          <button class="btn btn-success" id="btnClear">清空</button>-->
         </div>
         <div class="col-md-9">
           <div class="box box-primary">
@@ -139,6 +141,7 @@
 <script>
 import { getData } from "@/API/OA/chart.js";
 import $ from "jquery";
+
 export default {
   data() {
     return {};
@@ -204,7 +207,13 @@ export default {
             //         dataset: res.D[i].dataset,
             //         series: res.D[i].series
             //       };
-            myChart.setOption(res.D[i]);
+            var option = res.D[i];
+            option.toolbox = {
+              feature: {
+                saveAsImage: {}
+              }
+            };
+            myChart.setOption(option);
             window.addEventListener("resize", function() {
               myChart.resize();
             });

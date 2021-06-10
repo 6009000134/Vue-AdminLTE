@@ -24,6 +24,7 @@ import './assets/css/skins/_all-skins.css';
 // import 'admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css'
 import 'vue2-toastr/dist/css/vue2-toastr.css';// Toastr css
 import axios from 'axios';
+
 // import qs from 'qs'
 import Toastr from 'vue2-toastr';
 import eModal from '@/components/Modal/extendModal.vue';
@@ -49,7 +50,7 @@ var toastrConfig = {
 };
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
-Vue.prototype.$echarts=echarts;
+Vue.prototype.$echarts = echarts;
 // Vue.prototype.$qs = qs
 Vue.use(Toastr, toastrConfig);
 Vue.use(VeeValidate, {

@@ -4,6 +4,7 @@ import { getToken, setToken } from '@/utils/auth';
 import router from '@/router';
 
 var basicUrl = 'http://localhost:30826/api/';
+// var basicUrl = 'http://192.168.20.46:808/api/';
 // var basicUrl = ''
 
 const httpService = axios.create({
