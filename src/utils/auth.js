@@ -2,8 +2,8 @@ const tokenKey = "token";
 const getToken = function () {
   return localStorage.getItem(tokenKey);
 };
-const setToken = function () {
-  return localStorage.setItem(tokenKey, tokenKey);
+const setToken = function (data) {
+  return localStorage.setItem(tokenKey, data);
 };
 const removeToken = function () {
   return localStorage.removeItem(tokenKey);

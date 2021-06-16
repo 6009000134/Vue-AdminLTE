@@ -53,9 +53,9 @@
                   <label class="control-label col-xs-4 col-sm-4 col-md-4 col-lg-4">类型</label>
                   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                     <div class="input-group">
-                      <input type="text" class="form-control" v-model="columnInfo.ColumnName" />
+                      <input type="text" class="form-control" v-model="columnInfo.ColumnType" />
                       <span class="input-group-addon">
-                        <a href="#" @click.prevent="columnInfo.ColumnName=''">
+                        <a href="#" @click.prevent="columnInfo.ColumnType=''">
                           <i class="glyphicon glyphicon-trash text-red"></i>
                         </a>
                       </span>
@@ -66,9 +66,9 @@
                   <label class="control-label col-xs-4 col-sm-4 col-md-4 col-lg-4">尺寸</label>
                   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                     <div class="input-group">
-                      <input type="text" class="form-control" v-model="columnInfo.ColumnName" />
+                      <input type="text" class="form-control" v-model="columnInfo.Size" />
                       <span class="input-group-addon">
-                        <a href="#" @click.prevent="columnInfo.ColumnName=''">
+                        <a href="#" @click.prevent="columnInfo.Size=''">
                           <i class="glyphicon glyphicon-trash text-red"></i>
                         </a>
                       </span>
@@ -78,23 +78,26 @@
                 <div class="form-group col-xs-12 col-sm-9 col-md-6 col-lg-3">
                   <label class="control-label col-xs-4 col-sm-4 col-md-4 col-lg-4">是否可空</label>
                   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                    <div class="input-group">
-                      <input type="text" class="form-control" v-model="columnInfo.ColumnName" />
+                    <label class="control-label">
+                      <input type="checkbox" v-model="columnInfo.IsNullble" />
+                    </label>
+                    <!-- <div class="input-group">
+                      <input type="text" class="form-control" v-model="columnInfo.IsNullable" />
                       <span class="input-group-addon">
-                        <a href="#" @click.prevent="columnInfo.ColumnName=''">
+                        <a href="#" @click.prevent="columnInfo.IsNullable=''">
                           <i class="glyphicon glyphicon-trash text-red"></i>
                         </a>
                       </span>
-                    </div>
+                    </div>-->
                   </div>
                 </div>
                 <div class="form-group col-xs-12 col-sm-9 col-md-6 col-lg-3">
                   <label class="control-label col-xs-4 col-sm-4 col-md-4 col-lg-4">默认值</label>
                   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                     <div class="input-group">
-                      <input type="text" class="form-control" v-model="columnInfo.ColumnName" />
+                      <input type="text" class="form-control" v-model="columnInfo.DefaultValue" />
                       <span class="input-group-addon">
-                        <a href="#" @click.prevent="columnInfo.ColumnName=''">
+                        <a href="#" @click.prevent="columnInfo.DefaultValue=''">
                           <i class="glyphicon glyphicon-trash text-red"></i>
                         </a>
                       </span>
@@ -105,9 +108,9 @@
                   <label class="control-label col-xs-4 col-sm-4 col-md-4 col-lg-4">备注</label>
                   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                     <div class="input-group">
-                      <input type="text" class="form-control" v-model="columnInfo.ColumnName" />
+                      <input type="text" class="form-control" v-model="columnInfo.Remark" />
                       <span class="input-group-addon">
-                        <a href="#" @click.prevent="columnInfo.ColumnName=''">
+                        <a href="#" @click.prevent="columnInfo.Remark=''">
                           <i class="glyphicon glyphicon-trash text-red"></i>
                         </a>
                       </span>
@@ -129,7 +132,7 @@
 <script>
 // import { getDBList } from "@/API/DB";
 // import { addTable } from "@/API/Table";
-
+import { addColumn } from "@/API/Column.js";
 export default {
   data() {
     return {
@@ -149,7 +152,9 @@ export default {
   },
   methods: {
     cons() {
-      console.log(this.columnInfo);
+      addColumn(this.columnInfo).then(res => {
+        console.log(res);
+      });
     }
   },
   created() {

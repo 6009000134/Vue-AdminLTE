@@ -17,8 +17,7 @@
                   <label class="control-label col-sm-4 padding-xs">数据库</label>
                   <div class="col-sm-8 padding-xs">
                     <f-select
-                      v-model="tableInfo2.DBCon"
-                      f-key="DBCon"
+                      v-model="tableInfo2.DBInfo"
                       f-value="DBName"
                       :datasource="DBList"
                     ></f-select>
@@ -101,7 +100,10 @@ export default {
         TableName_EN: this.tableInfo2.TableName_EN,
         TableName_CN: this.tableInfo2.TableName_CN,
         Remark: this.tableInfo2.Remark,
-        DBCon: this.tableInfo2.DBCon // ,
+        DBCon: this.tableInfo2.DBInfo.DBCon,
+        DBTypeCode: this.tableInfo2.DBInfo.DBTypeCode,
+        DBType: this.tableInfo2.DBInfo.DBType,
+        DBName: this.tableInfo2.DBInfo.DBName
         // DBTypeCode: this.tableInfo2.DBInfo.Value
       };
       addTable(model).then(res => {

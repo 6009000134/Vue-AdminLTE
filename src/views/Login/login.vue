@@ -93,7 +93,7 @@ export default {
       login(this.User)
         .then(function(data) {
           if (data.S) {
-            that.$router.push({name:'DataBase'});
+            that.$router.push({ name: "DataBase" });
           } else {
             that.$toast.error({ message: "错误信息：" + data.M });
           }

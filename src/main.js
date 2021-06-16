@@ -51,6 +51,7 @@ var toastrConfig = {
 Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 Vue.prototype.$echarts = echarts;
+// Vue.prototype.$confirm = eModal;
 // Vue.prototype.$qs = qs
 Vue.use(Toastr, toastrConfig);
 Vue.use(VeeValidate, {

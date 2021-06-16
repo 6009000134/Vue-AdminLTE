@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '@/store';
-import { getToken, setToken } from '@/utils/auth';
+import { getToken, setToken, removeToken } from '@/utils/auth';
 import router from '@/router';
 
 var basicUrl = 'http://localhost:30826/api/';
@@ -55,19 +55,16 @@ httpService.interceptors.response.use(
 );
 
 httpService.interceptors.request.use(function (config) {
-  store.commit('setLoadState', true);
+  // store.commit('setLoadState', true);
   config.data = JSON.stringify(config.data);
   if (store.state.token) {
     config.headers.token = store.state.token;
   } else if (getToken()) {
     config.headers.token = getToken();
   }
-  if (config.headers && config.headers["Content-Type"]) {
-    // console.log(config.headers["Content-Type"],"Content-Type");
-  } else {
+  if (config.headers && config.headers["Content-Type"]) { } else {
     config.headers["Content-Type"] = "application/json";
   }
-  // console.log(config, 'config');
   return config;
 }, error => {
   return Promise.reject(error);

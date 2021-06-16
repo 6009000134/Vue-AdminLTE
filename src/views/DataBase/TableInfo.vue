@@ -13,6 +13,17 @@
                 <div class="form-group">
                   <div class="input-group">
                     <f-select
+                      v-model="DBInfo"
+                      f-value="DBName"
+                      cust-class="form-control"
+                      :datasource="DBList"
+                    ></f-select>
+                    <span class="input-group-addon">
+                      <a href="#" @click.prevent="DBInfo={}">
+                        <i class="glyphicon glyphicon-trash text-red"></i>
+                      </a>
+                    </span>
+                    <!-- <f-select
                       v-model="DBCon"
                       f-key="DBCon"
                       f-value="DBName"
@@ -23,7 +34,7 @@
                       <a href="#" @click.prevent="DBCon={}">
                         <i class="glyphicon glyphicon-trash text-red"></i>
                       </a>
-                    </span>
+                    </span>-->
                   </div>
                 </div>
                 <div class="form-group">
@@ -105,15 +116,19 @@
   </div>
 </template>
 <script>
-import { getDBList } from "@/API/DB";
-import { getTableList, deleteTable } from "@/API/Table";
+import { getDBList } from "@/API/db";
+import { getTableList, deleteTable } from "@/API/table";
 import $ from "jquery";
 // import modal from '@/views/DataBase/TableAddModal';
+// import extendModal from "@/components/Modal/extendModal";
+// var mConfirm = Vue.extend(extendModal);
+// new mConfirm().$mount('#ttt');
 export default {
   name: "DB",
   data() {
     return {
       DBCon: "",
+      DBInfo: {},
       TableName: "",
       DialogStatus: false,
       DBList: [],
