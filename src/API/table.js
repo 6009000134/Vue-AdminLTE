@@ -19,4 +19,5 @@ var deleteTable = (data) => {
 var getTableDetail = (data) => {
   return httpService.post(controllerName + "GetDetail", data);
 };
+
 export { getTableList, addTable, editTable, deleteTable, getTableDetail };

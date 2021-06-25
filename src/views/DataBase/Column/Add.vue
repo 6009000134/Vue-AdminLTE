@@ -132,7 +132,7 @@
 <script>
 // import { getDBList } from "@/API/DB";
 // import { addTable } from "@/API/Table";
-import { addColumn } from "@/API/Column.js";
+import { addColumn } from "@/API/column.js";
 export default {
   data() {
     return {

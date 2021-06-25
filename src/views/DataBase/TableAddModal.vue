@@ -66,8 +66,8 @@
 </template>
 <script>
 import $ from "jquery";
-import { getDBList } from "@/API/DB";
-import { addTable } from "@/API/Table";
+import { getDBList } from "@/API/db";
+import { addTable } from "@/API/table";
 
 export default {
   props: ["dbname", "status", "tableInfo2"],

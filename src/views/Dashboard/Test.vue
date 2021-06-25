@@ -1,5 +1,15 @@
 <template>
   <div>
+    <div class="content row">
+      <div class="col-md-12">
+        <div class="box box-danger">
+          <div class="box-header"></div>
+          <div class="box-body">
+            <input type="file" @change="upload" class="form-control" />
+          </div>
+        </div>
+      </div>
+    </div>
     <load :IsShow.sync="showLoading"></load>
     <emodal :IsShow.sync="IsShow">
       <span>123</span>
@@ -106,7 +116,12 @@
 import TestCom from "@/components/Test/TestCom";
 import emodal from "@/components/Modal/extendModal.vue";
 import load from "@/components/Modal/loading.vue";
-import { getList, getListMultObject, getListMultObject2 } from "@/API/test";
+import {
+  getList,
+  getListMultObject,
+  getListMultObject2,
+  postFile
+} from "@/API/test";
 export default {
   data() {
     return {
@@ -116,6 +131,17 @@ export default {
     };
   },
   methods: {
+    upload(e) {
+      if (e.target.files.length > 0) {
+        var file = e.target.files[0];
+        console.log(file);
+        let formdata = new FormData();
+        formdata.append("ff", file, file.name);
+        postFile(formdata).then(res => {
+          console.log(res);
+        });
+      }
+    },
     showModal() {
       this.IsShow = !this.IsShow;
     },

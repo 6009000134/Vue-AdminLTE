@@ -19,4 +19,10 @@ var getListMultObject2 = (data) => {
   return httpService.post(controllerName + "List3", data);
   // , { headers: { "Content-Type": "application/x-www-from-urlencoded" } }
 };
-export { getList, getListMultObject, getListMultObject2 };
+var postFile = (data) => {
+  // httpService.defaults.headers.post['Content-Type'] = ' multipart/form-data';
+  // httpService.defaults.headers["Content-Type"] = 'multipart/form-data';
+  httpService.setFormDataType();
+  return httpService.post(controllerName + "PostFile", data);
+};
+export { getList, getListMultObject, getListMultObject2, postFile };

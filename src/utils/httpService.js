@@ -12,6 +12,10 @@ const httpService = axios.create({
   // timeout: 5000,// request timeout
   headers: { 'Content-Type': 'application/json' }
 });
+var setFormData = function setFormData() {
+  httpService.defaults.headers["Content-Type"] = 'multipart/form-data';
+};
+httpService.setFormDataType = setFormData;
 
 httpService.interceptors.response.use(
   response => {
@@ -56,15 +60,19 @@ httpService.interceptors.response.use(
 
 httpService.interceptors.request.use(function (config) {
   // store.commit('setLoadState', true);
-  config.data = JSON.stringify(config.data);
   if (store.state.token) {
     config.headers.token = store.state.token;
   } else if (getToken()) {
     config.headers.token = getToken();
   }
-  if (config.headers && config.headers["Content-Type"]) { } else {
+  if (config.headers && config.headers["Content-Type"]) {
+  } else {
     config.headers["Content-Type"] = "application/json";
   }
+  if (config.headers["Content-Type"].toString() !== "multipart/form-data") {
+    config.data = JSON.stringify(config.data);
+  }
+
   return config;
 }, error => {
   return Promise.reject(error);

@@ -324,7 +324,7 @@
 </template>
 
 <script>
-import { getTableDetail } from "@/API/Table";
+import { getTableDetail } from "@/API/table";
 export default {
   data() {
     return {

@@ -41,7 +41,7 @@
   </div>
 </template>
 <script>
-import { getDBList } from "@/API/DB";
+import { getDBList } from "@/API/db";
 export default {
   name: "DB",
   data() {
