@@ -93,12 +93,10 @@
 <script>
 import { getFileList } from "@/API/file";
 import { Edit, getMenuList, getMenuByID, getTree } from "@/API/menu";
-import sidemenu from "@/layout/sidebar/sidemenu2";
 import hh from "@/layout/Sidebar/sidermenu3.vue";
 
 export default {
   components: {
-    sidemenu,
     hh
   },
   data() {
@@ -157,7 +155,6 @@ export default {
     getTree() {
       getTree().then(res => {
         this.menuTree = res.D;
-        console.log(this.menuTree, "menuTree");
       });
     }
   },

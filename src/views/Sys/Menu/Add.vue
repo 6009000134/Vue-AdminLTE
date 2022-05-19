@@ -2,7 +2,6 @@
   <div>
     <section class="content">
       <div style="position:relative;">
-        <sidemenu></sidemenu>
       </div>
       <!-- <div class="content-wrapper"> -->
       <div class="content-wrapper">
@@ -90,12 +89,7 @@
 <script>
 import { getFileList } from "@/API/file";
 import { Add, getMenuList, getTree } from "@/API/menu";
-import sidemenu from "@/layout/sidebar/sidemenu2";
 export default {
-  components: {
-    sidemenu
-    // contentMain,
-  },
   data() {
     return {
       menuArray: [],

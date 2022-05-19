@@ -56,7 +56,7 @@ instance.interceptors.request.use(function (config) {
     config.data = JSON.stringify(config.data);
   }
   // config.data = JSON.stringify(config.data);
-  console.log(config);
+  // console.log(config);
   return config;
 }, error => {
   return Promise.reject(error);

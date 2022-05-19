@@ -3,7 +3,6 @@ const trim = function (string) {
 };
 export function hasClass(el, cls) {
     if (!el || !cls) return false;
-    console.log(el.classList);
     if (cls.indexOf(' ') !== -1) throw new Error('className should not contain space.');
     if (el.classList) {
         return el.classList.contains(cls);

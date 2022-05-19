@@ -1,4 +1,5 @@
 <script>
+import $ from "jquery";
 import { addClass, removeClass, hasClass } from "./dom.js";
 export default {
   props: {
@@ -19,83 +20,86 @@ export default {
   },
   methods: {
     setActiveMenu(menuID) {
-      console.log(menuID);
       this.activeMenu = menuID;
     },
     collapseMenu(e, cls) {
       if (hasClass(e, "menu-open")) {
         removeClass(e, "menu-open");
+        $(e)
+          .children("ul.treeview-menu")
+          .slideUp("fast");
       } else {
         addClass(e, "menu-open"); //给当前原始设置样式
-      }
-      if (e.getElementsByTagName("ul")[0].style.display == "block") {
-        e.getElementsByTagName("ul")[0].style.display = "none";
-      } else {
-        // e.getElementsByTagName("ul")[0].style.transition  = "1000ms";
-        e.getElementsByTagName("ul")[0].style.display = "block";
+        $(e)
+          .children("ul.treeview-menu")
+          .slideDown("fast");
       }
     },
-    createChild(h, data) {
+    createChild(h, item) {
       var self = this;
-      return data.map(item => {
-        if (item.ChildMenu.length > 0) {
-          return this.$createElement(
-            "li",
-            {
-              class: {
-                treeview: true,
-                "menu-open": true
-              },
-              on: {
-                click($event) {
-                  self.collapseMenu($event.currentTarget, "menu-open");
-                  $event.stopPropagation();
-                }
-              }
+      console.log(item, item.MenuName);
+      if (item.ChildMenu.length > 0) {
+        return this.$createElement(
+          "li",
+          {
+            class: {
+              treeview: true,
+              "menu-open": false
             },
-            [
-              this.$createElement(
-                "a",
-                {
-                  attrs: { href: "javascript:void(0)" }
-                  // ,                  on: { click: this.setActiveMenu }
-                },
-                [
-                  this.$createElement("i", {
-                    class: { fa: true, "fa-dashboard": true }
-                  }),
-                  this.$createElement("span", [item.MenuName + "|" + item.ID]),
-                  this.$createElement(
-                    "span",
-                    { class: { "pull-right-container": true } },
-                    [
-                      this.$createElement("i", {
-                        class: {
-                          fa: true,
-                          "fa-angle-left": true,
-                          "pull-right": true
-                        }
-                      })
-                    ]
-                  )
-                ]
-              ),
-              this.$createElement(
-                "ul",
-                {
-                  class: { "treeview-menu": true },
-                  style: {
-                    display: "block"
-                  }
-                },
-                this.createChild(h, item.ChildMenu)
-              )
-            ]
-          );
-        } else {
-          return this.createBottomMenu(h, item);
-        }
-      });
+            on: {
+              click($event) {
+                self.collapseMenu($event.currentTarget, "menu-open");
+                $event.stopPropagation();
+              }
+            }
+          },
+          [
+            this.$createElement(
+              "a",
+              {
+                attrs: { href: "javascript:void(0)" }
+                // ,                  on: { click: this.setActiveMenu }
+              },
+              [
+                this.$createElement("i", {
+                  class: { fa: true, "fa-dashboard": true }
+                }),
+                this.$createElement("span", [item.MenuName + "|" + item.ID]),
+                this.$createElement(
+                  "span",
+                  { class: { "pull-right-container": true } },
+                  [
+                    this.$createElement("i", {
+                      class: {
+                        fa: true,
+                        "fa-angle-left": true,
+                        "pull-right": true
+                      }
+                    })
+                  ]
+                )
+              ]
+            ),
+            this.$createElement(
+              "ul",
+              {
+                class: { "treeview-menu": true },
+                style: {
+                  display: "none"
+                }
+              },
+              [
+                item.ChildMenu.map(item2 => {
+                  return this.createChild(h, item2);
+                })
+              ]
+            )
+          ]
+        );
+      } else {
+        console.log(item, item.MenuName, "3");
+        return this.createBottomMenu(h, item);
+      }
     },
     createBottomMenu(h, data) {
       var self = h;
@@ -142,8 +146,9 @@ export default {
               class: { "sidebar-menu": true, tree: true }
             },
             this.treeData.map(item => {
+              console.log(item, "1");
               if (item.ChildMenu.length > 0) {
-                return this.createChild(this, item.ChildMenu);
+                return this.createChild(this, item);
               } else {
                 return this.createBottomMenu(this, item);
               }
