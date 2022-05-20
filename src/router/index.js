@@ -83,12 +83,17 @@ const router = new Router({
               name: 'ExampleList',
               meta: { title: 'List', menuName: 'List', hasChildren: false },
               component: resolve => require(['@/views/Example/List'], resolve),
-            },  {
+            }, {
               path: 'Component',
               name: 'ComponentList',
               meta: { title: '组件', menuName: '组件', hasChildren: false },
               component: resolve => require(['@/views/Example/Component'], resolve),
-            },
+            }, {
+              path: 'FormDemo',
+              name: 'FormDemo',
+              meta: { title: '表单', menuName: '表单', hasChildren: false },
+              component: resolve => require(['@/views/Example/Form'], resolve),
+            }
           ]
         }, {
           path: '/Auctus/Dashboard',
