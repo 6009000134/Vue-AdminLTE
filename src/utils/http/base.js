@@ -1,6 +1,6 @@
 const base = {
-  web: 'http://localhost:30825/api/Web',
-  basic: 'http://localhost:30825/api/Basic'
+  web: 'http://localhost:30826/api/Web',
+  basic: 'http://localhost:30826/api/Basic'
 };
 // var basicUrl = 'http://192.168.11.27:666/api/';
 // var basicUrl = 'http://192.168.20.46:808/api/';

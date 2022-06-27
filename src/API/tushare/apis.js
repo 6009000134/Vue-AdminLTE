@@ -26,6 +26,7 @@ var createApiTable = (apiID) => {
   return httpService.post(controllerName + "CreateApiTable", apiID);
 };
 var getApiResult = (inputData) => {
+  console.log(inputData);
   return httpService.post(controllerName + "GetApiResult", inputData);
 };
 var getDividendResult = (inputData) => {

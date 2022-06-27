@@ -1,9 +1,15 @@
+import store from '../store/index.js';
 const tokenKey = "token";
 const getToken = function () {
-  return localStorage.getItem(tokenKey);
+  var token = localStorage.getItem(tokenKey);
+  if (token) {
+    store.commit("setToken", token);
+  }
+  return token;
 };
 const setToken = function (data) {
-  return localStorage.setItem(tokenKey, data);
+    store.commit("setToken", data);
+    localStorage.setItem(tokenKey, data);
 };
 const removeToken = function () {
   return localStorage.removeItem(tokenKey);

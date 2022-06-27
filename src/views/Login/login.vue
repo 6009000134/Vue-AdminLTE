@@ -107,10 +107,13 @@ export default {
       const that = this;
       login(this.User)
         .then(function(data) {
+            console.log('3',data);
           if (data.S) {
+            console.log('1');
             that.$router.push({ name: "DataBase" });
           } else {
             console.log(data);
+            console.log('2');
             that.$toast.error({ message: "错误信息：" + data.M });
           }
         })

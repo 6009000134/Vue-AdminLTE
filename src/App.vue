@@ -21,6 +21,8 @@ export default {
     isLoading() {
       return this.$store.state.isLoading;
     }
+  },mounted(){
+    console.log('111');
   }
 };
 </script>

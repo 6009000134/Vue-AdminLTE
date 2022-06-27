@@ -1,20 +1,18 @@
 import axios from 'axios';
 import store from '@/store';
 import { getToken, setToken } from '@/utils/auth';
-// import store from '@/store';
-// import { getToken, setToken, removeToken } from '@/utils/auth';
 import router from '@/router';
 
 var instance = axios.create({
   timeout: 1000 * 60,
-  headers:{"Content-Type":"application/json"}
+  headers: { "Content-Type": "application/json" }
 });
-  instance.interceptors.response.use(
+instance.interceptors.response.use(
   response => {
     if (response.status === 200) {
       if (response.headers.token) {
-        setToken(response.headers.token);
-        store.commit('setToken', response.headers.token);
+        (response.headers.token);
+        setToken(response.headers.token)
       }
       store.commit('setLoadState', false);
       return response.data;
@@ -25,7 +23,13 @@ var instance = axios.create({
     if (error.response) {
       switch (error.response.status) {
         case 401:
-          router.push({ name: 'Login' });
+          if (error.response.headers.token) {
+            router.push({ name: 'Login' });
+          } else {
+            //TODO: 刷新token，然後重新請求
+            // return new Promise(function (resolve) { return resolve(axios(error.config)); });          
+            router.push({ name: 'Login' });
+          }
           break;
         case 404:
           router.push({ name: 'Error', params: { status: error.response.status, msg: error.response.data.Message } });
@@ -46,15 +50,17 @@ var instance = axios.create({
 );
 
 instance.interceptors.request.use(function (config) {
-  if (store.state.token) {
-    config.headers.token = store.state.token;
-  } else if (getToken()) {
+  if (!store.state.token) {//vuex是否存在token
     config.headers.token = getToken();
   }
+  console.log("getToken",getToken());
+  config.headers.token = getToken();
+  config.headers.token = store.state.token;
   // config.headers["Content-Type"] = "application/x-www-form-urlencoded";
   if (config.headers["Content-Type"].toString() !== "multipart/form-data") {
     config.data = JSON.stringify(config.data);
   }
+  console.log("token",config.headers.token);
   // config.data = JSON.stringify(config.data);
   // console.log(config);
   return config;

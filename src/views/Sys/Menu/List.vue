@@ -86,18 +86,16 @@
                   </tr>
                 </tbody>
               </table>
-
-      
             </div>
-                    <div class="box-footer">
-                <pagination
-                  class
-                  :pageSize="page.pageSize"
-                  :pageIndex.sync="page.pageIndex"
-                  @pageChange="dataBind()"
-                  :totalCount="page.totalCount"
-                ></pagination>
-              </div>
+            <div class="box-footer">
+              <pagination
+                class
+                :pageSize="page.pageSize"
+                :pageIndex.sync="page.pageIndex"
+                @pageChange="dataBind()"
+                :totalCount="page.totalCount"
+              ></pagination>
+            </div>
           </div>
           <!--End Box-->
         </div>

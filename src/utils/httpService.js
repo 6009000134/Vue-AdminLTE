@@ -3,7 +3,7 @@ import store from '@/store';
 import { getToken, setToken, removeToken } from '@/utils/auth';
 import router from '@/router';
 
-var basicUrl = 'http://localhost:30825/api/';
+var basicUrl = 'http://localhost:30826/api/';
 // var basicUrl = 'http://192.168.11.27:666/api/';
 // var basicUrl = 'http://192.168.20.46:808/api/';
 // var basicUrl = 'http://192.168.20.46:8090/api/';
@@ -33,7 +33,6 @@ httpService.interceptors.response.use(
     if (response.status === 200) {
       if (response.headers.token) {
         setToken(response.headers.token);
-        store.commit('setToken', response.headers.token);
       } else {
         // router.push({ name: "Login" });
       }
@@ -71,6 +70,7 @@ httpService.interceptors.response.use(
 
 httpService.interceptors.request.use(function (config) {
   // store.commit('setLoadState', true);
+  console.log("getToken",getToken());
   if (store.state.token) {
     config.headers.token = store.state.token;
   } else if (getToken()) {
