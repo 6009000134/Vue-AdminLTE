@@ -15,14 +15,18 @@ Vue.use(Router);
 // TODO:菜单路由设置需要绝对/相对路径标识
 const defaultTitle = 'Auctus';
 const router = new Router({
-  // mode: 'history',
-  mode: 'hash',
+  mode: 'history',
+  // mode: 'hash',
   routes: [
     {
+      path:'/index.html',
+      redirect:{name:'Index'}
+    },
+    {      
       path: '/',
       component: resolve => require(['@/views/Login/login'], resolve),
-      meta: { title: '默认首页', hasChildren: false }
-      // redirect: '/Login'
+      meta: { title: '默认首页', hasChildren: false },
+      redirect: '/Login'
     },
     {
       path: '/Login',
