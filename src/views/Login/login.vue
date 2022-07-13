@@ -107,7 +107,6 @@ export default {
       const that = this;
       login(this.User)
         .then(function(data) {
-          console.log(data);return;
           if (data.S) {
             that.$router.push({ name: "DataBase" });
           } else {

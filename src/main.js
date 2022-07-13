@@ -34,7 +34,7 @@ import notification from '@/components/Notification/notification.vue';
 import notification1 from '@/components/Notification/index1.js';
 import testFun from '@/components/Notification/function1.js';
 
-import './mock/mock.js'
+// import './mock/mock.js'
 // import './mock/users.js';
 // import './mock/DB.js';
 // import './mock/Table.js';
